@@ -3,7 +3,7 @@
 ;; Place your private configuration here
 ;; Global Config for Mac
  (file-truename "~/.doom.d/")
-(setq envpath (file-truename "~/Dropbox/Dropbox/MacForEmacs"))
+(setq envpath (file-truename "~/Dropbox/MacForEmacs"))
 
 ;; 防止doom默认配置下zettel-new-file出现双标题.
 (set-file-template! 'org-mode :ignore t)
@@ -31,18 +31,18 @@
 
 
 ;; rime中文输入法设置
-
-(setq load-path (cons (concat envpath "/rime") load-path))
+(setq rime-path (concat envpath "/rime"))
+(setq load-path (cons rime-path load-path))
 
 (require 'pyim)
 (require 'posframe)
-(require 'liberime)
+(require 'liberime-core)
 
 (setq default-input-method "pyim")
 (setq pyim-page-tooltip 'posframe)
 (setq pyim-page-length 9)
 
-(liberime-start "/Library/Input Methods/Squirrel.app/Contents/SharedSupport" (file-truename "~/.doom.d/rime/"))
+(liberime-start "/Library/Input Methods/Squirrel.app/Contents/SharedSupport" rime-path)
 (liberime-select-schema "luna_pinyin_simp")
 (setq pyim-default-scheme 'rime-quanpin)
 
