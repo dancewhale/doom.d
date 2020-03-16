@@ -14,3 +14,6 @@
 
 (package! anki-editor
   :recipe (:host github :repo "louietan/anki-editor" :branch "master"))
+
+(package! xah-fly-keys
+  :recipe (:host github :repo "xahlee/xah-fly-keys" :branch "master"))
