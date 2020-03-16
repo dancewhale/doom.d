@@ -2,8 +2,15 @@
 
 ;; Place your private configuration here
 ;; Global Config for Mac
- (file-truename "~/.doom.d/")
+(file-truename "~/.doom.d/")
 (setq envpath (file-truename "~/Dropbox/MacForEmacs"))
+
+
+;;; ----------------------------
+;;; global的键位设置
+;;; ----------------------------
+;;; (define-key org-mode-map (kbd "C-c i") 'org-insert-heading)
+
 
 ;; 防止doom默认配置下zettel-new-file出现双标题.
 (set-file-template! 'org-mode :ignore t)
@@ -29,14 +36,14 @@
 (global-set-key (kbd "C-c d r") 'zetteldeft-file-rename)
 (global-set-key (kbd "C-c d x") 'zetteldeft-count-words)
 
-
+;;---------------------------------------
 ;; rime中文输入法设置
+;;---------------------------------------
 (setq rime-path (concat envpath "/rime"))
 (setq load-path (cons rime-path load-path))
-
-(require 'pyim)
-(require 'posframe)
+(add-load-path! (file-truename "~/.emacs.d/.local/straight/repos/liberime"))
 (require 'liberime-core)
+(require 'liberime)
 
 (setq default-input-method "pyim")
 (setq pyim-page-tooltip 'posframe)
@@ -51,7 +58,7 @@
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
-  (setq org-roam-directory "~/.deft/")
+  (setq org-roam-directory "~/.roam/")
   (map! :leader
         :prefix "n"
         :desc "Org-Roam-Insert" "i" #'org-roam-insert
@@ -59,3 +66,30 @@
         :desc "Org-Roam-Buffer" "r" #'org-roam)
   :config
   (org-roam-mode +1))
+
+;; org-editor启动
+(require 'anki-editor)
+
+
+;;;-------------------------------------------------
+;;; org-journal的个人配置,该包主要用于工作学习日志
+;;;-------------------------------------------------
+(require 'org-journal)
+(customize-set-variable 'org-journal-dir "~/Dropbox/org/worklog")
+(customize-set-variable 'org-journal-new-date-entry "%A, %d %B %Yz")
+(customize-set-variable 'org-journal-file-type `weekly)
+(customize-set-variable 'org-journal-file-format "%Y%m%d")
+
+(defun org-journal-date-format-func (time)
+  "Custom function to insert journal date header,
+and some custom text on a newly created journal file."
+  (when (= (buffer-size) 0)
+    (insert
+     (pcase org-journal-file-type
+      (`daily "#+TITLE: Daily Journal")
+       (`weekly "#+TITLE: Weekly Journal")
+       (`monthly "#+TITLE: Monthly Journal")
+       (`yearly "#+TITLE: Yearly Journal"))))
+  (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
+
+(setq org-journal-date-format 'org-journal-date-format-func)
