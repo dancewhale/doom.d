@@ -12,7 +12,10 @@
 ;;; (define-key org-mode-map (kbd "C-c i") 'org-insert-heading)
 
 
-;; 防止doom默认配置下zettel-new-file出现双标题.
+;;;-------------------------------------------------
+;;; zetteldeft 配置
+;;;-------------------------------------------------
+;;;防止doom默认配置下zettel-new-file出现双标题.
 (set-file-template! 'org-mode :ignore t)
 (require 'zetteldeft)
 (setq deft-use-filter-string-for-filename nil)
@@ -36,6 +39,7 @@
 (global-set-key (kbd "C-c d r") 'zetteldeft-file-rename)
 (global-set-key (kbd "C-c d x") 'zetteldeft-count-words)
 
+
 ;;---------------------------------------
 ;; rime中文输入法设置
 ;;---------------------------------------
@@ -53,8 +57,24 @@
 (liberime-select-schema "luna_pinyin_simp")
 (setq pyim-default-scheme 'rime-quanpin)
 
+;;自动切换中英文，注释和正文中不输入中文。
+(setq-default pyim-english-input-switch-functions
+              '(pyim-probe-dynamic-english
+                pyim-probe-isearch-mode
+                pyim-probe-program-mode
+                pyim-probe-org-structure-template))
 
+(setq-default pyim-punctuation-half-width-functions
+              '(pyim-probe-punctuation-line-beginning
+                pyim-probe-punctuation-after-punctuation))
+
+;强制转换英文为中文，与 pyim-probe-dynamic-english 配合
+(global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
+
+
+;;;-------------------------------------------------
 ;; org-roam的配置
+;;;-------------------------------------------------
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
@@ -67,7 +87,10 @@
   :config
   (org-roam-mode +1))
 
+
+;;;-------------------------------------------------
 ;; org-editor启动
+;;;-------------------------------------------------
 (require 'anki-editor)
 
 
