@@ -5,6 +5,12 @@
 (file-truename "~/.doom.d/")
 (setq envpath (file-truename "~/Dropbox/MacForEmacs"))
 
+(when (eq system-type 'darwin)
+  (progn
+    (message "config for darwin.")
+  )
+)
+
 
 ;;; ----------------------------
 ;;; global的键位设置
@@ -69,7 +75,7 @@
                 pyim-probe-punctuation-after-punctuation))
 
 ;强制转换英文为中文，与 pyim-probe-dynamic-english 配合
-(global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
+(global-set-key (kbd "s-j") 'pyim-convert-string-at-point)
 
 
 ;;;-------------------------------------------------
