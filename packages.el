@@ -10,7 +10,7 @@
   :recipe (:host github :repo "EFLS/zetteldeft" :files ("zetteldeft.el")))
 
 (package! org-roam
-  :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
+  :recipe (:host github :repo "jethrokuan/org-roam" :branch "master"))
 
 (package! anki-editor
   :recipe (:host github :repo "louietan/anki-editor" :branch "master"))
