@@ -177,10 +177,6 @@
  '(custom-safe-themes
    (quote
     ("f2b83b9388b1a57f6286153130ee704243870d40ae9ec931d0a1798a5a916e76" default)))
- '(org-journal-dir "~/Dropbox/org/worklog")
- '(org-journal-file-format "%Y%m%d")
- '(org-journal-file-type (quote weekly))
- '(org-journal-new-date-entry "%A, %d %B %Yz" t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
