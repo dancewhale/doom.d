@@ -50,6 +50,7 @@
 ;; rime中文输入法设置
 ;;---------------------------------------
 (setq rime-path (concat envpath "/rime"))
+(setq liberime-user-data-dir  (concat envpath "/rime/"))
 (setq load-path (cons rime-path load-path))
 (add-load-path! (file-truename "~/.emacs.d/.local/straight/repos/liberime"))
 (require 'liberime-core)
