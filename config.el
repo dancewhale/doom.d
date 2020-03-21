@@ -90,7 +90,10 @@
         :prefix "n"
         :desc "Org-Roam-Insert" "i" #'org-roam-insert
         :desc "Org-Roam-Find"   "/" #'org-roam-find-file
-        :desc "Org-Roam-Buffer" "r" #'org-roam)
+        :desc "Org-Roam-Buffer" "r" #'org-roam
+        :desc "Org-Roam-Graph"  "g" #'org-roam-show-graph
+        :desc "Org-Roam-Switch" "b" #'org-roam-switch-to-buffer
+        :desc "Org-Roam-Today"  ";" #'org-roam-today)
   :config
   (org-roam-mode +1))
 
