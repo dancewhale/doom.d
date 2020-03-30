@@ -96,6 +96,8 @@
         :desc "Org-Roam-Today"  ";" #'org-roam-today)
   :config
   (org-roam-mode +1))
+(require 'org-roam)
+(require 'org-roam-protocol)
 
 
 ;;;-------------------------------------------------

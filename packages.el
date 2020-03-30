@@ -2,7 +2,9 @@
 ;;; .doom.d/packages.el
 
 (package! org-journal)
+
 (package! posframe)
+
 (package! liberime
   :recipe (:host github :repo "merrickluo/liberime" :files ("liberime.el" "liberime-config.el")))
 (unpin! pyim)
@@ -22,3 +24,6 @@
 ;; 解决mac下的emacs-mac包 lacks multi-tty support 的问题.
 ;; (package! mac-pseudo-daemon
 ;;  :recipe (:host github :repo "DarwinAwardWinner/mac-pseudo-daemon" ))
+
+(package! notdeft
+  :recipe (:host github :repo "hasu/notdeft" :branch "xapian"))
