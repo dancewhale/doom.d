@@ -3,3 +3,5 @@
 - rime
 - org-journal
 - zetteldeft
+- notdeft
+- anki-editor
