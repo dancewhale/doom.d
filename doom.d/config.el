@@ -80,27 +80,6 @@
 
 
 ;;;-------------------------------------------------
-;; org-roam的配置
-;;;-------------------------------------------------
-(use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam)
-  :init
-  (setq org-roam-directory "~/.roam/")
-  (map! :leader
-        :prefix "n"
-        :desc "Org-Roam-Insert" "i" #'org-roam-insert
-        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
-        :desc "Org-Roam-Buffer" "r" #'org-roam
-        :desc "Org-Roam-Graph"  "g" #'org-roam-show-graph
-        :desc "Org-Roam-Switch" "b" #'org-roam-switch-to-buffer
-        :desc "Org-Roam-Today"  ";" #'org-roam-today)
-  :config
-  (org-roam-mode +1))
-(require 'org-roam)
-(require 'org-roam-protocol)
-
-
-;;;-------------------------------------------------
 ;; org-editor启动
 ;;;-------------------------------------------------
 (require 'anki-editor)
