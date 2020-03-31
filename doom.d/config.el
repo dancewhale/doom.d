@@ -3,14 +3,22 @@
 ;; Place your private configuration here
 ;; Global Config for Mac
 (file-truename "~/.doom.d/")
-(setq envpath (file-truename "~/Dropbox/MacForEmacs"))
 
 (when (eq system-type 'darwin)
   (progn
+    (setq envpath (file-truename "~/Dropbox/MacForEmacs"))
     (message "config for darwin.")
+  )
+  (progn
+    (message "linux is not in ready.")
   )
 )
 
+;;;-------------------------------------------------
+;; notdeft配置
+;;;-------------------------------------------------
+(setq notdeft-xapian-program (concat envpath "/bin/notdeft-xapian"))
+(setenv "XAPIAN_CJK_NGRAM" "1")
 
 ;;; ----------------------------
 ;;; global的键位设置
