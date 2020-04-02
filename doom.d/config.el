@@ -20,6 +20,11 @@
 (setq notdeft-xapian-program (concat envpath "/bin/notdeft-xapian"))
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
+;;;-------------------------------------------------
+;; roam 的配置
+;;;-------------------------------------------------
+(setq org-directory "~/.deft/")
+
 ;;; ----------------------------
 ;;; global的键位设置
 ;;; ----------------------------
