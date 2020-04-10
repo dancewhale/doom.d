@@ -19,7 +19,7 @@
 ;;;-------------------------------------------------
 (setq notdeft-xapian-program (concat envpath "/bin/notdeft-xapian"))
 (setenv "XAPIAN_CJK_NGRAM" "1")
-(setq notdeft-directories "~/.roam/")
+(setq notdeft-directories '("~/.roam/"))
 
 ;;;-------------------------------------------------
 ;; roam 的配置
