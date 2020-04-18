@@ -7,7 +7,9 @@
 
 (package! liberime
   :recipe (:host github :repo "merrickluo/liberime" :files ("liberime.el" "liberime-config.el")))
-(unpin! pyim)
+
+(package! pyim :pin "b854e7c629")
+(package! liberime :pin "e081f4bfaf")
 
 (package! zetteldeft
   :recipe (:host github :repo "EFLS/zetteldeft" :files ("zetteldeft.el")))
