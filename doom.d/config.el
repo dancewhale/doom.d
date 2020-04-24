@@ -69,6 +69,7 @@
 ;;;-------------------------------------------------
 (require 'rime)
 (setq rime-user-data-dir (concat my_base_path "/chinese/rime"))
+(custom-set-variables '(rime-librime-root (concat my_base_path "/lib/librime")))
 
 (setq rime-posframe-properties
       (list :background-color "#333333"
@@ -78,7 +79,6 @@
 
 (setq default-input-method "rime"
       rime-show-candidate 'posframe)
-
 
 ;;;-------------------------------------------------
 ;; org-editor启动
