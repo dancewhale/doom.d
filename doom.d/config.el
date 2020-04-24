@@ -3,17 +3,18 @@
 ;; Place your private configuration here
 ;; Global Config for Mac
 (file-truename "~/.doom.d/")
+(setq my_base_path (file-truename "~/Dropbox/emacs"))
 
 (when (eq system-type 'darwin)
   (progn
-    (setq envpath (file-truename "~/Dropbox/MacForEmacs"))
+    (setq envpath (concat my_base_path "/mac"))
     (message "config for darwin.")
   )
 )
 
 (when (eq system-type 'gnu/linux)
   (progn
-    (setq envpath (file-truename "~/Dropbox/LinuxForEmacs"))
+    (setq envpath (concat my_base_path "/linux"))
     (message "config for darwin.")
   )
 )
@@ -62,10 +63,12 @@
 (global-set-key (kbd "C-c d r") 'zetteldeft-file-rename)
 (global-set-key (kbd "C-c d x") 'zetteldeft-count-words)
 
+
+;;;-------------------------------------------------
 ;; rime input-method
-(add-load-path! (file-truename "~/emacs-rime"))
+;;;-------------------------------------------------
 (require 'rime)
-(setq rime-user-data-dir "~/.config/fcitx/rime")
+(setq rime-user-data-dir (concat my_base_path "/chinese/rime"))
 
 (setq rime-posframe-properties
       (list :background-color "#333333"

@@ -8,6 +8,8 @@
 (package! liberime
   :recipe (:host github :repo "merrickluo/liberime" :files ("liberime.el" "liberime-config.el")))
 
+(package! rime)
+
 (package! pyim :pin "b854e7c629")
 (package! liberime :pin "e081f4bfaf")
 
