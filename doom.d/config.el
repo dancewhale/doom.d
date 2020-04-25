@@ -8,6 +8,7 @@
 (when (eq system-type 'darwin)
   (progn
     (setq envpath (concat my_base_path "/mac"))
+    (setq system_font "Kai")
     (message "config for darwin.")
   )
 )
@@ -15,6 +16,7 @@
 (when (eq system-type 'gnu/linux)
   (progn
     (setq envpath (concat my_base_path "/linux"))
+    (setq system_font "WenQuanYi Micro Hei Mono-14")
     (message "config for darwin.")
   )
 )
@@ -66,6 +68,9 @@
 
 ;;;-------------------------------------------------
 ;; rime input-method
+;; rime的输入法在doom中的配置的编译失败可以手工介入
+;; 在repos中的emacs-rime目录中执行make lib后
+;; 把编译好的so和.c文件放入build/rime目录之下。
 ;;;-------------------------------------------------
 (require 'rime)
 (setq rime-user-data-dir (concat my_base_path "/chinese/rime"))
@@ -74,7 +79,7 @@
 (setq rime-posframe-properties
       (list :background-color "#333333"
             :foreground-color "#dcdccc"
-            :font "WenQuanYi Micro Hei Mono-14"
+            :font system_font
             :internal-border-width 10))
 
 (setq default-input-method "rime"
