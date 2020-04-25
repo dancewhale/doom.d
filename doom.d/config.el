@@ -80,3 +80,27 @@ and some custom text on a newly created journal file."
 
 (setq org-journal-date-format 'org-journal-date-format-func)
 
+
+;;;-------------------------------------------------
+;;; org的个人配置,如何记录、如何作笔记。
+;;;-------------------------------------------------
+(setq org-directory (concat my_base_path "/org"))
+
+(setq org-todo-keywords
+        '((sequence
+           "☞ TODO(t)"  ; A task that needs doing & is ready to do
+           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
+           "⚔ INPROCESS(s)"  ; A task that is in progress
+           "⚑ WAITING(w)"  ; Something is holding up this task; or it is paused
+           "|"
+           "☟ NEXT(n)"
+           "✰ Important(i)"
+           "✔ DONE(d)"  ; Task successfully completed
+           "✘ CANCELED(c@)") ; Task was cancelled, aborted or is no longer applicable
+          (sequence
+           "✍ NOTE(N)"
+           "FIXME(f)"
+           "☕ BREAK(b)"
+           "❤ Love(l)"
+           "REVIEW(r)"
+           )) ; Task was completed
