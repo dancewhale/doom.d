@@ -103,4 +103,4 @@ and some custom text on a newly created journal file."
            "☕ BREAK(b)"
            "❤ Love(l)"
            "REVIEW(r)"
-           )) ; Task was completed
+           ))) ; Task was completed
