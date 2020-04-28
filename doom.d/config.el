@@ -55,7 +55,7 @@
 
 (setq default-input-method "rime"
       rime-show-candidate 'posframe)
-
+(global-set-key (kbd "s-j") 'toggle-input-method)
 
 ;;;-------------------------------------------------
 ;;; org-journal的个人配置,该包主要用于工作学习日志
