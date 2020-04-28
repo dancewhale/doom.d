@@ -84,7 +84,7 @@ and some custom text on a newly created journal file."
 ;;;-------------------------------------------------
 ;;; org的个人配置,如何记录、如何作笔记。
 ;;;-------------------------------------------------
-(setq org-directory (concat my_base_path "/org"))
+(setq org-directory "~/Dropbox/org")
 
 (setq org-todo-keywords
         '((sequence
