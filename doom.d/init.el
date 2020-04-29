@@ -144,8 +144,9 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
+        +journal           ; org-journal record your life
         +dragndrop       ; drag & drop files/images into org buffers
-		+roam              ; roam package for note manager.
+        +roam              ; roam package for note manager.
         ;;+hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support

@@ -1,8 +1,6 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; .doom.d/packages.el
 
-(package! org-journal)
-
 (package! posframe)
 
 (package! rime
