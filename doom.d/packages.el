@@ -5,7 +5,9 @@
 
 (package! rime
  :recipe(:host github :repo "DogLooksGood/emacs-rime"
-	 :files ("rime-predicates.el" "rime.el")))
+ :files ("rime-predicates.el" "rime.el")))
 
 (package! notdeft
   :recipe (:host github :repo "hasu/notdeft" :branch "xapian"))
+
+(package! org-starter)

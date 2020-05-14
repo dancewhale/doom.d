@@ -111,3 +111,44 @@ and some custom text on a newly created journal file."
            "❤ Love(l)"
            "REVIEW(r)"
            ))) ; Task was completed
+
+
+(use-package org-starter
+  :config
+  ;; (add-hook! 'after-init-hook 'org-starter-load-all-files-in-path)
+  (org-starter-def "~/Dropbox/org/org-notes"
+                   :files
+                   ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
+                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
+                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5 ) )
+                   ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5 ))
+                   ("post/traveling/traveling.org" :key "t" :refile (:maxlevel .5 ))
+                   ("post/myself/love.org"         :key "l" :refile (:maxlevel .5 ))
+                   ("post/myself/qing.org"         :key "q" :refile (:maxlevel .5 ))
+                   ("post/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
+                   ("GTD/my-books.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
+                   ("post/life-thing/life-things.org")
+                   ("NSM-GTD/workflow.org"         :agenda t :required t)
+                   ("NSM-GTD/NsmOrg.org"           :agenda t :required t)
+                   ("art/music.org"                :agenda t :required t)
+                   )
+  (org-starter-def "~/Dropbox/tmp"
+                   :files
+                   ("README.org")
+                   ("wallpaper.org" :agenda nil)
+                   )
+)
+
+(after! org
+  (setq org-capture-templates
+        '(("t" "Personal todo" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* [ ] %?\n%i\n%a" :prepend t)
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %u %?\n%i\n%a" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+           ))
+)
