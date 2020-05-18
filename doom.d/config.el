@@ -102,21 +102,22 @@ and some custom text on a newly created journal file."
 ;;;-------------------------------------------------
 (setq org-directory "~/Dropbox/org")
 
+(setq org-log-into-drawer t)
 (setq org-todo-keywords
         '((sequence
-           "☞ TODO(t)"  ; A task that needs doing & is ready to do
            "PROJ(p)"  ; An ongoing project that cannot be completed in one step
-           "⚔ INPROCESS(s)"  ; A task that is in progress
-           "⚑ WAITING(w)"  ; Something is holding up this task; or it is paused
+           "☞ TODO(t)"  ; A task that needs doing & is ready to do
+           "☟ NEXT(n)"  ;tasks are things that I can work on right now; they are not blocked by anything and can be picked up.
+           "⚔ INPROCESS(s!)"  ; A task that is in progress
+           "⚑ WAITING(w@)"  ; Something is holding up this task; or it is paused
            "|"
-           "☟ NEXT(n)"
-           "✰ Important(i)"
-           "✔ DONE(d)"  ; Task successfully completed
-           "✘ CANCELED(c@)") ; Task was cancelled, aborted or is no longer applicable
+           "☕ BREAK(b)"
+           "✔ DONE(d!)"  ; Task successfully completed
+           "✘ CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
+           "EVENT(e)"
            "✍ NOTE(N)"
            "FIXME(f)"
-           "☕ BREAK(b)"
            "❤ Love(l)"
            "REVIEW(r)"
            ))) ; Task was completed
