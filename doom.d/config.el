@@ -25,6 +25,15 @@
 
 
 ;;;-------------------------------------------------
+;; 增加全局快捷键
+;;;-------------------------------------------------
+;;;跳转gtd文件
+(define-prefix-command 'key-cao-map)
+(global-set-key (kbd "s-u") 'key-cao-map)
+(define-key key-cao-map (kbd "s-j") 'org-starter-find-file-by-key)
+
+
+;;;-------------------------------------------------
 ;; 修改默认doom的theme
 ;;;-------------------------------------------------
 (setq doom-theme 'doom-dracula)
@@ -41,7 +50,6 @@
 ;; roam 的配置
 ;;;-------------------------------------------------
 (setq org-roam-directory "~/.roam/")
-
 
 
 ;;;-------------------------------------------------
@@ -63,6 +71,7 @@
 (setq default-input-method "rime"
       rime-show-candidate 'posframe)
 (global-set-key (kbd "s-j") 'toggle-input-method)
+
 
 ;;;-------------------------------------------------
 ;;; org-journal的个人配置,该包主要用于工作学习日志
