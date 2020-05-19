@@ -11,3 +11,5 @@
   :recipe (:host github :repo "hasu/notdeft" :branch "xapian"))
 
 (package! org-starter)
+
+(package! org-super-agenda)

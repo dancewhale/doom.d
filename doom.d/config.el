@@ -103,11 +103,13 @@ and some custom text on a newly created journal file."
 (setq org-directory "~/Dropbox/org")
 
 (setq org-log-into-drawer t)
+(setq org-clock-into-drawer t)
+
 (setq org-todo-keywords
         '((sequence
            "PROJ(p)"  ; An ongoing project that cannot be completed in one step
-           "☞ TODO(t)"  ; A task that needs doing & is ready to do
-           "☟ NEXT(n)"  ;tasks are things that I can work on right now; they are not blocked by anything and can be picked up.
+           "☞ TODO(tm)"  ; A task that needs doing, minute tag for small task.
+           "☟ NEXT(n)"    ;something is ready to do at next.
            "⚔ INPROCESS(s!)"  ; A task that is in progress
            "⚑ WAITING(w@)"  ; Something is holding up this task; or it is paused
            "|"
@@ -117,12 +119,14 @@ and some custom text on a newly created journal file."
           (sequence
            "EVENT(e)"
            "✍ NOTE(N)"
-           "FIXME(f)"
            "❤ Love(l)"
            "REVIEW(r)"
            ))) ; Task was completed
 
 
+;;;-------------------------------------------------
+;;; org-starter的个人配置
+;;;-------------------------------------------------
 (use-package org-starter
   :config
   (org-starter-def "~/Dropbox/org"
@@ -138,12 +142,71 @@ and some custom text on a newly created journal file."
 
 (org-starter-define-file "gtd.org" :directory "~/Dropbox/org/GTD" :agenda t)
 (org-starter-define-file "notes.org" :directory "~/Dropbox/org/GTD" :agenda t)
-(org-starter-def-capture "g" "Things plan to do." entry
+(org-starter-def-capture "t" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
-                 "* ☞ TODO %?  %^g" :prepend t)
-(org-starter-def-capture "n" "Notes need to remember." entry
+                 "* ☞ TODO  %?    \t  %^g" :prepend t)
+(org-starter-def-capture "n" "Notes of think need to write down." entry
               (file+headline "notes.org" "Inbox")
-                 "* ☞ TODO %?" :prepend t)
-(org-starter-def-capture "m" "Things for you self." entry
-              (file+headline "gtd.org" "Inbox")
-                 "* ☞ TODO %?  %^g" :prepend t)
+                 "* ✍ NOTE  %?  \n%U" :prepend t)
+(org-starter-def-capture "e" "Event happend need to write down." entry
+              (file+headline "notes.org" "Inbox")
+                 "* EVENT %? \n%U" :prepend t)
+
+
+;;;-------------------------------------------------
+;;; super-agenda的个人配置
+;;;-------------------------------------------------
+(use-package! org-super-agenda
+  :config
+  (add-hook! 'after-init-hook 'org-super-agenda-mode)
+  (require 'org-habit)
+  (setq
+   org-agenda-skip-scheduled-if-done t
+   org-agenda-skip-deadline-if-done t
+   org-agenda-include-deadlines t
+   org-agenda-include-diary nil
+   org-agenda-block-separator nil
+   org-agenda-compact-blocks t
+   org-agenda-start-with-log-mode t)
+)
+
+(setq org-super-agenda-groups
+       '(
+         (:name "TODO123"
+                :todo "☞ TODO")
+         (:name "NEXT"
+                :todo "☟ NEXT")
+         ))
+
+
+(require 'org-super-agenda)
+(setq org-agenda-custom-commands
+  '(("c" "CAO Agenda"
+     ((agenda "" ((org-agenda-span 2)
+                  (org-agenda-start-day "-1d")
+                  (org-super-agenda-groups
+                   '((:name "Today List"
+                            :time-grid t
+                            :date today
+                            :todo "⚔ INPROCESS"
+                            :scheduled today
+                            :order 1)))))
+      (alltodo "" ((org-agenda-overriding-header "")
+                   (org-super-agenda-groups
+                    '((:name "Next to do"
+                             :todo "☞ TODO"
+                             :order 2)
+                      (:name "☟ NEXT"
+                             :todo "☟ NEXT"
+                             :order 6)
+                      (:name "trivial"
+                             :auto-dir-name t
+                             :order 3)
+                      (:name "Due Today"
+                             :deadline today
+                             :order 3)
+                      (:discard (:tag ("Chore" "Routine" "Daily")))))))
+     )
+    )
+   )
+)
