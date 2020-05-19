@@ -170,15 +170,6 @@ and some custom text on a newly created journal file."
    org-agenda-start-with-log-mode t)
 )
 
-(setq org-super-agenda-groups
-       '(
-         (:name "TODO123"
-                :todo "☞ TODO")
-         (:name "NEXT"
-                :todo "☟ NEXT")
-         ))
-
-
 (require 'org-super-agenda)
 (setq org-agenda-custom-commands
   '(("c" "CAO Agenda"
@@ -189,24 +180,18 @@ and some custom text on a newly created journal file."
                             :time-grid t
                             :date today
                             :todo "⚔ INPROCESS"
-                            :scheduled today
                             :order 1)))))
       (alltodo "" ((org-agenda-overriding-header "")
                    (org-super-agenda-groups
-                    '((:name "Next to do"
+                    '((:name "Thing plan to do."
                              :todo "☞ TODO"
                              :order 2)
-                      (:name "☟ NEXT"
+                      (:name "Thing going to do at next."
                              :todo "☟ NEXT"
+                             :order 3)
+                      (:name "Thing under break."
+                             :todo  "☕ BREAK"
                              :order 6)
-                      (:name "trivial"
-                             :auto-dir-name t
-                             :order 3)
-                      (:name "Due Today"
-                             :deadline today
-                             :order 3)
-                      (:discard (:tag ("Chore" "Routine" "Daily")))))))
-     )
-    )
-   )
-)
+                      (:name "Thing in Waiting"
+                             :todo "⚑ WAITING"
+                             :order 5)))))))))
