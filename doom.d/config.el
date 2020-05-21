@@ -108,19 +108,16 @@ and some custom text on a newly created journal file."
 (setq org-todo-keywords
         '((sequence
            "PROJ(p)"  ; An ongoing project that cannot be completed in one step
-           "☞ TODO(tm)"  ; A task that needs doing, minute tag for small task.
-           "☟ NEXT(n)"    ;something is ready to do at next.
-           "⚔ INPROCESS(s!)"  ; A task that is in progress
-           "⚑ WAITING(w@)"  ; Something is holding up this task; or it is paused
+           "TODO(t)"  ; A task that plan todo.
+           "NEXT(n)"  ; Something that is plan todo this week.
+           "STARTED(s!)"  ; Something that is start todo tody.
            "|"
-           "☕ BREAK(b)"
-           "✔ DONE(d!)"  ; Task successfully completed
-           "✘ CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
+           "DONE(d!)"  ; Task successfully completed
+           "DELAYED(D!)"  ; Task can't complete today delay to reset to STARTED tomorrow.
+           "CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
            "EVENT(e)"
-           "✍ NOTE(N)"
-           "❤ Love(l)"
-           "REVIEW(r)"
+           "NOTE(N)"
            ))) ; Task was completed
 
 
@@ -131,12 +128,10 @@ and some custom text on a newly created journal file."
   :config
   (org-starter-def "~/Dropbox/org"
                    :files
-                   ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel .5))
-                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5))
-                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5))
-                   ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5))
-                   )
-)
+                   ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
+                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel . 5))
+                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel . 5))
+                   ("GTD/events.org"                   :agenda t :key "e" :refile (:maxlevel . 5))))
 
 (after! org (setq org-capture-templates nil))
 
@@ -144,12 +139,12 @@ and some custom text on a newly created journal file."
 (org-starter-define-file "notes.org" :directory "~/Dropbox/org/GTD" :agenda t)
 (org-starter-def-capture "t" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
-                 "* ☞ TODO  %?    \t  %^g" :prepend t)
+                 "* TODO  %?    \t  %^g" :prepend t)
 (org-starter-def-capture "n" "Notes of think need to write down." entry
               (file+headline "notes.org" "Inbox")
-                 "* ✍ NOTE  %?  \n%U" :prepend t)
+                 "* NOTE  %?  \n%U" :prepend t)
 (org-starter-def-capture "e" "Event happend need to write down." entry
-              (file+headline "notes.org" "Inbox")
+              (file+headline "events.org" "Inbox")
                  "* EVENT %? \n%U" :prepend t)
 
 
@@ -170,28 +165,27 @@ and some custom text on a newly created journal file."
    org-agenda-start-with-log-mode t)
 )
 
+(setq org-journal-enable-agenda-integration t)
 (require 'org-super-agenda)
 (setq org-agenda-custom-commands
-  '(("c" "CAO Agenda"
-     ((agenda "" ((org-agenda-span 2)
-                  (org-agenda-start-day "-1d")
-                  (org-super-agenda-groups
-                   '((:name "Today List"
-                            :time-grid t
-                            :date today
-                            :todo "⚔ INPROCESS"
-                            :order 1)))))
-      (alltodo "" ((org-agenda-overriding-header "")
-                   (org-super-agenda-groups
-                    '((:name "Thing plan to do."
-                             :todo "☞ TODO"
+  '(("w" "Weekly Overview of cao."
+     ((alltodo "" ((org-super-agenda-groups
+                    '((:name "This week's Tasks."
+                             :todo "NEXT"
                              :order 2)
-                      (:name "Thing going to do at next."
-                             :todo "☟ NEXT"
+                      (:name "Delayed Tasks"
+                             :todo "DELAYED"
                              :order 3)
-                      (:name "Thing under break."
-                             :todo  "☕ BREAK"
+                      (:name "Thing In Progress."
+                             :todo  "STARTED"
                              :order 6)
-                      (:name "Thing in Waiting"
-                             :todo "⚑ WAITING"
-                             :order 5)))))))))
+                      (:discard (:anything))))))))
+    ("p" "Plan work of week."
+     ((alltodo "" ((org-super-agenda-groups
+                    '((:name "Things this week plan todo."
+                             :todo "NEXT"
+                             :order 2)
+                      (:name "Things plan todo."
+                             :todo "TODO"
+                             :order 3)
+                      (:discard (:anything))))))))))
