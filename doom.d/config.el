@@ -96,7 +96,6 @@ and some custom text on a newly created journal file."
 
 (setq org-journal-date-format 'org-journal-date-format-func)
 
-
 ;;;-------------------------------------------------
 ;;; org的个人配置,如何记录、如何作笔记。
 ;;;-------------------------------------------------
@@ -142,11 +141,10 @@ and some custom text on a newly created journal file."
                  "* TODO  %?    \t  %^g" :prepend t)
 (org-starter-def-capture "n" "Notes of think need to write down." entry
               (file+headline "notes.org" "Inbox")
-                 "* NOTE  %?  \n%U" :prepend t)
+                 "* NOTE  %?  \n%T" :prepend t)
 (org-starter-def-capture "e" "Event happend need to write down." entry
-              (file+headline "events.org" "Inbox")
-                 "* EVENT %? \n%U" :prepend t)
-
+              (file+olp+datetree "~/Dropbox/org/GTD/events.org" "Inbox")
+                 "*  %?    :EVENT:\n %T")
 
 ;;;-------------------------------------------------
 ;;; super-agenda的个人配置
