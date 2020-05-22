@@ -127,10 +127,10 @@ and some custom text on a newly created journal file."
   :config
   (org-starter-def "~/Dropbox/org"
                    :files
-                   ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
-                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel . 5))
-                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel . 5))
-                   ("GTD/events.org"                   :agenda t :key "e" :refile (:maxlevel . 5))))
+                   ("GTD/gtd.org"         :agenda t :key "g" :refile (:maxlevel . 5))
+                   ("GTD/notes.org"       :agenda t :key "n" :refile (:maxlevel . 5))
+                   ("GTD/myself.org"      :agenda t :key "m" :refile (:maxlevel . 5))
+                   ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
 
 (after! org (setq org-capture-templates nil))
 
@@ -145,7 +145,9 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "e" "Event happend need to write down." entry
               (file+olp+datetree "~/Dropbox/org/GTD/events.org" "Inbox")
                  "*  %?    :EVENT:\n %T")
-
+(org-starter-def-capture "h" "Habit" entry (file "~/Dropbox/org/GTD/myself.org")
+               "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
+                \n:PROPERTIES:\n:STYLE: habit\n:END:\n")
 ;;;-------------------------------------------------
 ;;; super-agenda的个人配置
 ;;;-------------------------------------------------
