@@ -184,6 +184,6 @@ and some custom text on a newly created journal file."
                              :todo "NEXT"
                              :order 2)
                       (:name "Things plan todo."
-                             :todo "TODO"
+                             :and (:todo "TODO" :not (:tag "myself"))
                              :order 3)
                       (:discard (:anything))))))))))
