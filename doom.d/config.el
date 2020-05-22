@@ -180,10 +180,13 @@ and some custom text on a newly created journal file."
                       (:discard (:anything))))))))
     ("p" "Plan work of week."
      ((alltodo "" ((org-super-agenda-groups
-                    '((:name "Things this week plan todo."
-                             :todo "NEXT"
+                    '((:name "Things is started right now."
+                             :todo "STARTED"
                              :order 2)
+                      (:name "Things this week plan todo."
+                             :todo "NEXT"
+                             :order 3)
                       (:name "Things plan todo."
                              :and (:todo "TODO" :not (:tag "myself"))
-                             :order 3)
+                             :order 4)
                       (:discard (:anything))))))))))
