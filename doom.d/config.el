@@ -119,6 +119,11 @@ and some custom text on a newly created journal file."
            "NOTE(N)"
            ))) ; Task was completed
 
+(setq hl-todo-keyword-faces
+      `(("TODO"  . ,(face-foreground 'warning))
+        ("STARTED" . ,(face-foreground 'error))
+        ("NOTE"  . ,(face-foreground 'success))))
+
 
 ;;;-------------------------------------------------
 ;;; org-starter的个人配置
@@ -148,6 +153,8 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "h" "Habit" entry (file "~/Dropbox/org/GTD/myself.org")
                "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
                 \n:PROPERTIES:\n:STYLE: habit\n:END:\n")
+
+
 ;;;-------------------------------------------------
 ;;; super-agenda的个人配置
 ;;;-------------------------------------------------
@@ -190,5 +197,17 @@ and some custom text on a newly created journal file."
                              :order 3)
                       (:name "Things plan todo."
                              :and (:todo "TODO" :not (:tag "myself"))
+                             :order 4)
+                      (:discard (:anything))))))))
+    ("m" "Plan thing of myself."
+     ((alltodo "" ((org-super-agenda-groups
+                    '((:name "Things is started right now."
+                             :and (:todo "STARTED" :tag "myself")
+                             :order 2)
+                      (:name "Things this week plan todo."
+                             :and (:todo "NEXT"  :tag "myself")
+                             :order 3)
+                      (:name "Things plan todo."
+                             :and (:todo "TODO" :tag "myself")
                              :order 4)
                       (:discard (:anything))))))))))
