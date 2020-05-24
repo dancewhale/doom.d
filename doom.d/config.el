@@ -144,14 +144,17 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "t" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
+(org-starter-def-capture "m" "My things plan to do." entry
+              (file+headline "myself.org" "Inbox")
+                 "* TODO  %?    \t  %^g" :prepend t)
 (org-starter-def-capture "n" "Notes of think need to write down." entry
               (file+headline "notes.org" "Inbox")
                  "* NOTE  %?  \n%T" :prepend t)
 (org-starter-def-capture "e" "Event happend need to write down." entry
               (file+olp+datetree "~/Dropbox/org/GTD/events.org" "Inbox")
                  "*  %?    :EVENT:\n %T")
-(org-starter-def-capture "h" "Habit" entry (file "~/Dropbox/org/GTD/myself.org")
-               "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
+(org-starter-def-capture "h" "Habit" entry (file+headline "~/Dropbox/org/GTD/myself.org" "Inbox")
+               "* TODO %?  \t %^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
                 \n:PROPERTIES:\n:STYLE: habit\n:END:\n")
 
 
