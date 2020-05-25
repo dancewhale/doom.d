@@ -193,14 +193,17 @@ and some custom text on a newly created journal file."
     ("p" "Plan work of week."
      ((alltodo "" ((org-super-agenda-groups
                     '((:name "Things is started right now."
-                             :todo "STARTED"
+                             :and (:todo "STARTED" :not (:tag "other"))
                              :order 2)
                       (:name "Things this week plan todo."
                              :todo "NEXT"
-                             :order 3)
+                             :order 6)
                       (:name "Things plan todo."
                              :and (:todo "TODO" :not (:tag "myself"))
-                             :order 4)
+                             :order 7)
+                      (:name "Things asign to other persion."
+                             :and (:todo "STARTED" :tag "other")
+                             :order 11)
                       (:discard (:anything))))))))
     ("m" "Plan thing of myself."
      ((alltodo "" ((org-super-agenda-groups
