@@ -112,6 +112,7 @@ and some custom text on a newly created journal file."
            "STARTED(s!)"  ; Something that is start todo tody.
            "|"
            "DONE(d!)"  ; Task successfully completed
+           "WAIT(w@/!)"  ; Task should wait for some condition for ready.
            "DELAYED(D!)"  ; Task can't complete today delay to reset to STARTED tomorrow.
            "CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
