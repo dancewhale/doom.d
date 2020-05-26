@@ -198,15 +198,27 @@ and some custom text on a newly created journal file."
                              :order 2)
                       (:name "Things this week plan todo."
                              :todo "NEXT"
-                             :order 6)
+                             :order 3)
                       (:name "Things plan todo."
                              :and (:todo "TODO" :not (:tag "myself"))
-                             :order 7)
+                             :order 4)
                       (:name "Things asign to other persion."
                              :and (:todo "STARTED" :tag "other")
                              :order 11)
                       (:discard (:anything))))))))
-    ("m" "Plan thing of myself."
+     ("P" "Project of work."
+     ((alltodo "" ((org-super-agenda-groups
+                    '((:name "LONG Project that long should to do."
+                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "long")
+                             :order 5)
+                      (:name "MIDDLE Project that short should to do."
+                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "middle")
+                             :order 6)
+                      (:name "SHORT Project should to do."
+                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "short")
+                             :order 7)
+                      (:discard (:anything))))))))
+   ("m" "Plan thing of myself."
      ((alltodo "" ((org-super-agenda-groups
                     '((:name "Things is started right now."
                              :and (:todo "STARTED" :tag "myself")
@@ -217,4 +229,13 @@ and some custom text on a newly created journal file."
                       (:name "Things plan todo."
                              :and (:todo "TODO" :tag "myself")
                              :order 4)
+                      (:name "LONG Project that long should to do."
+                             :and (:todo "PROJ" :tag "long" :file-path "myself\\.org")
+                             :order 5)
+                      (:name "MIDDLE Project that short should to do."
+                             :and (:todo "PROJ" :tag "middle" :file-path "myself\\.org")
+                             :order 6)
+                      (:name "SHORT Project should to do."
+                             :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
+                             :order 7)
                       (:discard (:anything))))))))))
