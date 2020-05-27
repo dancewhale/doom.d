@@ -110,10 +110,10 @@ and some custom text on a newly created journal file."
            "TODO(t)"  ; A task that plan todo.
            "NEXT(n)"  ; Something that is plan todo this week.
            "STARTED(s!)"  ; Something that is start todo tody.
-           "|"
-           "DONE(d!)"  ; Task successfully completed
            "WAIT(w@/!)"  ; Task should wait for some condition for ready.
            "DELAYED(D!)"  ; Task can't complete today delay to reset to STARTED tomorrow.
+           "|"
+           "DONE(d!)"  ; Task successfully completed
            "CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
            "EVENT(e)"
@@ -142,7 +142,7 @@ and some custom text on a newly created journal file."
 
 (org-starter-define-file "gtd.org" :directory "~/Dropbox/org/GTD" :agenda t)
 (org-starter-define-file "notes.org" :directory "~/Dropbox/org/GTD" :agenda t)
-(org-starter-def-capture "t" "Things plan to do." entry
+(org-starter-def-capture "w" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
 (org-starter-def-capture "m" "My things plan to do." entry
@@ -154,7 +154,7 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "e" "Event happend need to write down." entry
               (file+olp+datetree "~/Dropbox/org/GTD/events.org" "Inbox")
                  "*  %?    :EVENT:\n %T")
-(org-starter-def-capture "h" "Habit" entry (file+headline "~/Dropbox/org/GTD/myself.org" "Inbox")
+(org-starter-def-capture "h" "Habit" entry (file+headline "~/Dropbox/org/GTD/Habit.org" "Inbox")
                "* TODO %?  \t %^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
                 \n:PROPERTIES:\n:STYLE: habit\n:END:\n")
 
@@ -179,19 +179,7 @@ and some custom text on a newly created journal file."
 (setq org-journal-enable-agenda-integration t)
 (require 'org-super-agenda)
 (setq org-agenda-custom-commands
-  '(("w" "Weekly Overview of cao."
-     ((alltodo "" ((org-super-agenda-groups
-                    '((:name "This week's Tasks."
-                             :todo "NEXT"
-                             :order 2)
-                      (:name "Delayed Tasks"
-                             :todo "DELAYED"
-                             :order 3)
-                      (:name "Thing In Progress."
-                             :todo  "STARTED"
-                             :order 6)
-                      (:discard (:anything))))))))
-    ("p" "Plan work of week."
+  '(("p" "Plan work of week."
      ((alltodo "" ((org-super-agenda-groups
                     '((:name "Things is started right now."
                              :and (:todo "STARTED" :not (:tag "other"))
@@ -202,8 +190,11 @@ and some custom text on a newly created journal file."
                       (:name "Things plan todo."
                              :and (:todo "TODO" :not (:tag "myself"))
                              :order 4)
+                      (:name "Things waiting todo."
+                             :todo "WAIT"
+                             :order 5)
                       (:name "Things asign to other persion."
-                             :and (:todo "STARTED" :tag "other")
+                             :tag "other"
                              :order 11)
                       (:discard (:anything))))))))
      ("P" "Project of work."
