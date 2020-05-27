@@ -181,21 +181,25 @@ and some custom text on a newly created journal file."
 (setq org-agenda-custom-commands
   '(("p" "Plan work of week."
      ((alltodo "" ((org-super-agenda-groups
-                    '((:name "Things is started right now."
-                             :and (:todo "STARTED" :not (:tag "other"))
+                    '(
+                      (:name "Things asign to other persion."
+                             :tag "other"
+                             :order 11)
+                      (:name "Things is started right now."
+                             :todo "STARTED"
                              :order 2)
                       (:name "Things this week plan todo."
                              :todo "NEXT"
                              :order 3)
                       (:name "Things plan todo."
-                             :and (:todo "TODO" :not (:tag "myself"))
+                             :todo "TODO"
                              :order 4)
                       (:name "Things waiting todo."
                              :todo "WAIT"
                              :order 5)
-                      (:name "Things asign to other persion."
-                             :tag "other"
-                             :order 11)
+                      (:name "Things delayed to next day."
+                             :todo "DELAYED"
+                             :order 20)
                       (:discard (:anything))))))))
      ("P" "Project of work."
      ((alltodo "" ((org-super-agenda-groups
