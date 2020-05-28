@@ -136,6 +136,7 @@ and some custom text on a newly created journal file."
                    ("GTD/gtd.org"         :agenda t :key "g" :refile (:maxlevel . 5))
                    ("GTD/notes.org"       :agenda t :key "n" :refile (:maxlevel . 5))
                    ("GTD/myself.org"      :agenda t :key "m" :refile (:maxlevel . 5))
+                   ("GTD/Habit.org"       :agenda t :key "m" :refile (:maxlevel . 5))
                    ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
 
 (after! org (setq org-capture-templates nil))
@@ -149,12 +150,12 @@ and some custom text on a newly created journal file."
               (file+headline "myself.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
 (org-starter-def-capture "n" "Notes of think need to write down." entry
-              (file+headline "notes.org" "Inbox")
+              (file+olp+datetree "notes.org" "Inbox")
                  "* NOTE  %?  \n%T" :prepend t)
 (org-starter-def-capture "e" "Event happend need to write down." entry
-              (file+olp+datetree "~/Dropbox/org/GTD/events.org" "Inbox")
+              (file+olp+datetree "events.org" "Inbox")
                  "*  %?    :EVENT:\n %T")
-(org-starter-def-capture "h" "Habit" entry (file+headline "~/Dropbox/org/GTD/Habit.org" "Inbox")
+(org-starter-def-capture "h" "Habit" entry (file+headline "Habit.org" "Inbox")
                "* TODO %?  \t %^g\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\") \
                 \n:PROPERTIES:\n:STYLE: habit\n:END:\n")
 
@@ -183,19 +184,19 @@ and some custom text on a newly created journal file."
      ((alltodo "" ((org-super-agenda-groups
                     '(
                       (:name "Things asign to other persion."
-                             :tag "other"
+                             :and (:tag  "other"  :file-path "gtd\\.org")
                              :order 11)
                       (:name "Things is started right now."
-                             :todo "STARTED"
+                             :and (:todo  "STARTED"  :file-path "gtd\\.org")
                              :order 2)
                       (:name "Things this week plan todo."
-                             :todo "NEXT"
+                             :and (:todo  "NEXT"  :file-path "gtd\\.org")
                              :order 3)
                       (:name "Things plan todo."
-                             :todo "TODO"
+                             :and (:todo  "TODO"  :file-path "gtd\\.org")
                              :order 4)
                       (:name "Things waiting todo."
-                             :todo "WAIT"
+                             :and (:todo  "WAIT"  :file-path "gtd\\.org")
                              :order 5)
                       (:name "Things delayed to next day."
                              :todo "DELAYED"
@@ -224,13 +225,16 @@ and some custom text on a newly created journal file."
                       (:name "Things plan todo."
                              :and (:todo "TODO" :tag "myself")
                              :order 4)
+                      (:name "HABBIT should do for long time."
+                             :and (:todo ("TODO" "PROJ") :file-path "Habit\\.org")
+                             :order 7)
                       (:name "LONG Project that long should to do."
                              :and (:todo "PROJ" :tag "long" :file-path "myself\\.org")
-                             :order 5)
+                             :order 8)
                       (:name "MIDDLE Project that short should to do."
                              :and (:todo "PROJ" :tag "middle" :file-path "myself\\.org")
-                             :order 6)
+                             :order 10)
                       (:name "SHORT Project should to do."
                              :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
-                             :order 7)
+                             :order 12)
                       (:discard (:anything))))))))))
