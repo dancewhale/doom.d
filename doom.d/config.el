@@ -32,7 +32,11 @@
 (global-set-key (kbd "s-u") 'key-cao-map)
 (define-key key-cao-map (kbd "s-j") 'org-starter-find-file-by-key)
 
+;; 暂时取消gpg的使用
+;; ~/.authinfo.gpg文件使用明文
+;; machine gitlab.kylincloud.org/api/v4 login dancewhale^forge  password  testpass
 
+(epa-file-disable)
 ;;;-------------------------------------------------
 ;; 修改默认doom的theme
 ;;;-------------------------------------------------
@@ -50,7 +54,6 @@
 ;; roam 的配置
 ;;;-------------------------------------------------
 (setq org-roam-directory "~/.roam/")
-
 
 ;;;-------------------------------------------------
 ;; rime input-method
