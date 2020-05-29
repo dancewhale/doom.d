@@ -202,7 +202,7 @@ and some custom text on a newly created journal file."
                              :and (:todo  "WAIT"  :file-path "gtd\\.org")
                              :order 5)
                       (:name "Things delayed to next day."
-                             :todo "DELAYED"
+                             :and (:todo  "DELAYED"  :file-path "gtd\\.org")
                              :order 20)
                       (:discard (:anything))))))))
      ("P" "Project of work."
