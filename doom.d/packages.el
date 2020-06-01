@@ -13,3 +13,7 @@
 (package! org-starter)
 
 (package! org-super-agenda)
+
+
+(package! anki-editor
+  :recipe (:host github :repo "louietan/anki-editor" :branch "master"))
