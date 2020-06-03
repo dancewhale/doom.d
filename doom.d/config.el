@@ -128,6 +128,7 @@ and some custom text on a newly created journal file."
           (sequence
            "EVENT(e)"
            "NOTE(N)"
+           "THOUGHTS(T)"
            ))) ; Task was completed
 
 (setq hl-todo-keyword-faces
@@ -145,6 +146,7 @@ and some custom text on a newly created journal file."
                    :files
                    ("GTD/gtd.org"         :agenda t :key "g" :refile (:maxlevel . 5))
                    ("GTD/notes.org"       :agenda t :key "n" :refile (:maxlevel . 5))
+                   ("GTD/thoughts.org"    :agenda t :key "n" :refile (:maxlevel . 5))
                    ("GTD/myself.org"      :agenda t :key "m" :refile (:maxlevel . 5))
                    ("GTD/Habit.org"       :agenda t :key "m" :refile (:maxlevel . 5))
                    ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
@@ -156,6 +158,9 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "w" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
+(org-starter-def-capture "z" "清除大脑杂念，纯净心灵." entry
+              (file+olp+datetree "thoughts.org" "Inbox")
+                 "*  %?    :THOUGHTS:\n %T")
 (org-starter-def-capture "m" "My things plan to do." entry
               (file+headline "myself.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
