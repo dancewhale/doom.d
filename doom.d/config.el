@@ -219,15 +219,10 @@ and some custom text on a newly created journal file."
                       (:discard (:anything))))))))
      ("P" "Project of work."
      ((alltodo "" ((org-super-agenda-groups
-                    '((:name "LONG Project that long should to do."
-                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "long")
-                             :order 5)
-                      (:name "MIDDLE Project that short should to do."
-                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "middle")
-                             :order 6)
-                      (:name "SHORT Project should to do."
-                             :and (:todo "PROJ" :file-path "gtd\\.org" :tag "short")
-                             :order 7)
+                    '(
+                      (:name "Things asign for project."
+                             :auto-parent t
+                             :order 1)
                       (:discard (:anything))))))))
    ("m" "Plan thing of myself."
      ((alltodo "" ((org-super-agenda-groups
