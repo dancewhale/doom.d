@@ -126,9 +126,9 @@ and some custom text on a newly created journal file."
            "DONE(d!)"  ; Task successfully completed
            "CANCELED(c@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
+           "QUESTION(v)"
            "EVENT(e)"
            "NOTE(N)"
-           "THOUGHTS(T)"
            ))) ; Task was completed
 
 (setq hl-todo-keyword-faces
@@ -158,7 +158,7 @@ and some custom text on a newly created journal file."
 (org-starter-def-capture "w" "Things plan to do." entry
               (file+headline "gtd.org" "Inbox")
                  "* TODO  %?    \t  %^g" :prepend t)
-(org-starter-def-capture "z" "清除大脑杂念，纯净心灵." entry
+(org-starter-def-capture "v" "清除大脑杂念，纯净心灵." entry
               (file+olp+datetree "thoughts.org" "Inbox")
                  "*  %?    :THOUGHTS:\n %T")
 (org-starter-def-capture "m" "My things plan to do." entry
@@ -218,14 +218,21 @@ and some custom text on a newly created journal file."
                              :order 20)
                       (:discard (:anything))))))))
      ("P" "Project of work."
-     ((alltodo "" ((org-super-agenda-groups
+       ((alltodo "" ((org-super-agenda-groups
                     '(
                       (:name "Things asign for project."
                              :auto-parent t
                              :order 1)
                       (:discard (:anything))))))))
-   ("m" "Plan thing of myself."
-     ((alltodo "" ((org-super-agenda-groups
+     ("t" "think of myself."
+       ((alltodo "" ((org-super-agenda-groups
+                    '(
+                      (:name "My thought and question."
+                             :file-path "thoughts\\.org"
+                             :order 1)
+                      (:discard (:anything))))))))
+     ("m" "Plan thing of myself."
+       ((alltodo "" ((org-super-agenda-groups
                     '((:name "Things is started right now."
                              :and (:todo "STARTED" :tag "myself")
                              :order 2)
