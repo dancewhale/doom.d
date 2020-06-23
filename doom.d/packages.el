@@ -20,3 +20,9 @@
 (package! doom-snippets :ignore t)
 
 (package! yasnippet-snippets)
+
+(package! org-roam-server
+  :recipe (:host github :repo "org-roam/org-roam-server" :branch "master"))
+
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex" :branch "master"))
