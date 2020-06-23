@@ -146,9 +146,9 @@ and some custom text on a newly created journal file."
                    :files
                    ("GTD/gtd.org"         :agenda t :key "g" :refile (:maxlevel . 5))
                    ("GTD/notes.org"       :agenda t :key "n" :refile (:maxlevel . 5))
-                   ("GTD/thoughts.org"    :agenda t :key "n" :refile (:maxlevel . 5))
+                   ("GTD/thoughts.org"    :agenda t :key "v" :refile (:maxlevel . 5))
                    ("GTD/myself.org"      :agenda t :key "m" :refile (:maxlevel . 5))
-                   ("GTD/Habit.org"       :agenda t :key "m" :refile (:maxlevel . 5))
+                   ("GTD/Habit.org"       :agenda t :key "H" :refile (:maxlevel . 5))
                    ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
 
 (after! org (setq org-capture-templates nil))
@@ -195,63 +195,70 @@ and some custom text on a newly created journal file."
 (setq org-journal-enable-agenda-integration t)
 (require 'org-super-agenda)
 (setq org-agenda-custom-commands
-  '(("p" "Plan work of week."
-     ((alltodo "" ((org-super-agenda-groups
-                    '(
-                      (:name "Things asign to other persion."
-                             :and (:tag  "other"  :file-path "gtd\\.org")
-                             :order 11)
-                      (:name "Things is started right now."
-                             :and (:todo  "STARTED"  :file-path "gtd\\.org")
-                             :order 2)
-                      (:name "Things this week plan todo."
-                             :and (:todo  "NEXT"  :file-path "gtd\\.org")
-                             :order 3)
-                      (:name "Things plan todo."
-                             :and (:todo  "TODO"  :file-path "gtd\\.org")
-                             :order 4)
-                      (:name "Things waiting todo."
-                             :and (:todo  "WAIT"  :file-path "gtd\\.org")
-                             :order 5)
-                      (:name "Things delayed to next day."
-                             :and (:todo  "DELAYED"  :file-path "gtd\\.org")
-                             :order 20)
-                      (:discard (:anything))))))))
-     ("P" "Project of work."
-       ((alltodo "" ((org-super-agenda-groups
-                    '(
-                      (:name "Things asign for project."
-                             :auto-parent t
-                             :order 1)
-                      (:discard (:anything))))))))
-     ("t" "think of myself."
-       ((alltodo "" ((org-super-agenda-groups
-                    '(
-                      (:name "My thought and question."
-                             :file-path "thoughts\\.org"
-                             :order 1)
-                      (:discard (:anything))))))))
-     ("m" "Plan thing of myself."
-       ((alltodo "" ((org-super-agenda-groups
-                    '((:name "Things is started right now."
-                             :and (:todo "STARTED" :tag "myself")
-                             :order 2)
-                      (:name "Things this week plan todo."
-                             :and (:todo "NEXT"  :tag "myself")
-                             :order 3)
-                      (:name "Things plan todo."
-                             :and (:todo "TODO" :tag "myself")
-                             :order 4)
-                      (:name "HABBIT should do for long time."
-                             :and (:todo ("TODO" "PROJ") :file-path "Habit\\.org")
-                             :order 7)
-                      (:name "LONG Project that long should to do."
-                             :and (:todo "PROJ" :tag "long" :file-path "myself\\.org")
-                             :order 8)
-                      (:name "MIDDLE Project that short should to do."
-                             :and (:todo "PROJ" :tag "middle" :file-path "myself\\.org")
-                             :order 10)
-                      (:name "SHORT Project should to do."
-                             :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
-                             :order 12)
-                      (:discard (:anything))))))))))
+      '(("p" "Plan work of week."
+         ((alltodo "" ((org-super-agenda-groups
+                        '(
+                          (:name "clear."
+                                 :file-path "thoughts\\.org"
+                                 :order 33)
+                          (:name "Things asign to other persion."
+                                 :and (:tag  "other"  :file-path "gtd\\.org")
+                                 :order 11)
+                          (:name "Things is started right now."
+                                 :and (:todo  "STARTED"  :file-path "gtd\\.org")
+                                 :order 2)
+                          (:name "Things this week plan todo."
+                                 :and (:todo  "NEXT"  :file-path "gtd\\.org")
+                                 :order 3)
+                          (:name "Things plan todo."
+                                 :and (:todo  "TODO"  :file-path "gtd\\.org")
+                                 :order 4)
+                          (:name "Things waiting todo."
+                                 :and (:todo  "WAIT"  :file-path "gtd\\.org")
+                                 :order 5)
+                          (:name "Things delayed to next day."
+                                 :and (:todo  "DELAYED"  :file-path "gtd\\.org")
+                                 :order 20)
+                          (:discard (:anything))))))))
+        ("P" "Project of work."
+         ((alltodo "" ((org-super-agenda-groups
+                        '(
+                          (:name "Things asign for project."
+                                 :auto-parent t
+                                 :order 1)
+                          (:discard (:anything))))))))
+        ("t" "think of myself."
+         ((alltodo "" ((org-super-agenda-groups
+                        '(
+                          (:name "My thought and question."
+                                 :file-path "thoughts\\.org"
+                                 :order 1)
+                          (:discard (:anything))))))))
+        ("m" "Plan thing of myself."
+         ((alltodo "" ((org-super-agenda-groups
+                        '(
+                          (:name "clear."
+                                 :file-path "thoughts\\.org"
+                                 :order 33)
+                          (:name "Things is started right now."
+                                 :and (:todo "STARTED" :tag "myself")
+                                 :order 2)
+                          (:name "Things this week plan todo."
+                                 :and (:todo "NEXT"  :tag "myself")
+                                 :order 3)
+                          (:name "Things plan todo."
+                                 :and (:todo "TODO" :tag "myself")
+                                 :order 4)
+                          (:name "HABBIT should do for long time."
+                                 :and (:todo ("TODO" "PROJ") :file-path "Habit\\.org")
+                                 :order 7)
+                          (:name "LONG Project that long should to do."
+                                 :and (:todo "PROJ" :tag "long" :file-path "myself\\.org")
+                                 :order 8)
+                          (:name "MIDDLE Project that short should to do."
+                                 :and (:todo "PROJ" :tag "middle" :file-path "myself\\.org")
+                                 :order 10)
+                          (:name "SHORT Project should to do."
+                                 :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
+                                 :order 12)
+                          (:discard (:anything))))))))))
