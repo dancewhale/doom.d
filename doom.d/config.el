@@ -9,6 +9,7 @@
   (progn
     (setq envpath (concat my_base_path "/mac"))
     (setq system_font "Kai")
+    (setq org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
     (message "config for darwin.")
   )
 )
@@ -17,6 +18,7 @@
   (progn
     (setq envpath (concat my_base_path "/linux"))
     (setq system_font "WenQuanYi Micro Hei Mono-14")
+    (setq org-roam-graph-viewer "")
     (message "config for darwin.")
   )
 )
@@ -105,24 +107,17 @@
 ;;; org-journal的个人配置,该包主要用于工作学习日志
 ;;;-------------------------------------------------
 (require 'org-journal)
-(customize-set-variable 'org-journal-dir "~/Dropbox/org/worklog")
-(customize-set-variable 'org-journal-new-date-entry "%A, %d %B %Yz")
-(customize-set-variable 'org-journal-file-type `weekly)
-(customize-set-variable 'org-journal-file-format "%Y%m%d")
 
-(defun org-journal-date-format-func (time)
-  "Custom function to insert journal date header,
-and some custom text on a newly created journal file."
-  (when (= (buffer-size) 0)
-    (insert
-     (pcase org-journal-file-type
-      (`daily "#+TITLE: Daily Journal")
-       (`weekly "#+TITLE: Weekly Journal")
-       (`monthly "#+TITLE: Monthly Journal")
-       (`yearly "#+TITLE: Yearly Journal"))))
-  (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
+(use-package org-journal
+  :bind
+  ("C-c n j" . org-journal-new-date-entry)
+  :custom
+  (org-journal-date-prefix  "#+title: ")
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-dir "~/Dropbox/roam/")
+  (org-journal-date-format "%A, %d %B %Y")
+ )
 
-(setq org-journal-date-format 'org-journal-date-format-func)
 
 ;;;-------------------------------------------------
 ;;; org的个人配置,如何记录、如何作笔记。
@@ -148,6 +143,11 @@ and some custom text on a newly created journal file."
            "EVENT(e)"
            "NOTE(N)"
            ))) ; Task was completed
+
+;; follow mode in another buffer show tree.
+(advice-add 'org-agenda-goto :after
+            (lambda (&rest args)
+              (org-narrow-to-subtree)))
 
 (setq hl-todo-keyword-faces
       `(("TODO"  . ,(face-foreground 'warning))
@@ -280,3 +280,4 @@ and some custom text on a newly created journal file."
                                  :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
                                  :order 12)
                           (:discard (:anything))))))))))
+
