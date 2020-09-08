@@ -90,7 +90,17 @@
 ;;;-------------------------------------------------
 (require 'rime)
 (setq rime-user-data-dir (concat my_base_path "/chinese/rime"))
-(custom-set-variables '(rime-librime-root (concat my_base_path "/lib/librime")))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-journal-date-format "%A, %d %B %Y")
+ '(org-journal-date-prefix "#+title: ")
+ '(org-journal-dir "~/Dropbox/roam/")
+ '(org-journal-file-format "%Y-%m-%d.org")
+ '(package-selected-packages (quote (docker org-roam-server)))
+ '(rime-librime-root (concat my_base_path "/lib/librime")))
 
 (setq rime-posframe-properties
       (list :background-color "#333333"
@@ -131,9 +141,9 @@
         '((sequence
            "PROJ(p)"  ; An ongoing project that cannot be completed in one step
            "TODO(t)"  ; A task that plan todo.
-           "NEXT(n)"  ; Something that is plan todo this week.
+           "WEEKLY(w)"  ; Something that is plan todo this week.
            "STARTED(s!)"  ; Something that is start todo tody.
-           "WAIT(w@/!)"  ; Task should wait for some condition for ready.
+           "WAIT(W@/!)"  ; Task should wait for some condition for ready.
            "DELAYED(D!)"  ; Task can't complete today delay to reset to STARTED tomorrow.
            "|"
            "DONE(d!)"  ; Task successfully completed
@@ -222,28 +232,25 @@
                           (:name "Things asign to other persion."
                                  :and (:tag  "other"  :file-path "gtd\\.org")
                                  :order 11)
-                          (:name "Things is started right now."
+                          (:name "TODAY"
                                  :and (:todo  "STARTED"  :file-path "gtd\\.org")
+                                 :order 1)
+                          (:name "TOMORROW DELAYED"
+                                 :and (:todo  "DELAYED"  :file-path "gtd\\.org")
                                  :order 2)
-                          (:name "Things this week plan todo."
-                                 :and (:todo  "NEXT"  :file-path "gtd\\.org")
+                          (:name "WEEKLY"
+                                 :and (:todo  "WEEKLY"  :file-path "gtd\\.org")
                                  :order 3)
-                          (:name "Things plan todo."
+                          (:name "INBOX"
                                  :and (:todo  "TODO"  :file-path "gtd\\.org")
                                  :order 4)
-                          (:name "Things waiting todo."
-                                 :and (:todo  "WAIT"  :file-path "gtd\\.org")
+                          (:name "PROJECT"
+                                 :and (:todo  "PROJ"  :file-path "gtd\\.org"
+                                       :children ( "TODO" "WEEKLY" "STARTED" "DELAYED" "WAIT"))
                                  :order 5)
-                          (:name "Things delayed to next day."
-                                 :and (:todo  "DELAYED"  :file-path "gtd\\.org")
-                                 :order 20)
-                          (:discard (:anything))))))))
-        ("P" "Project of work."
-         ((alltodo "" ((org-super-agenda-groups
-                        '(
-                          (:name "Things asign for project."
-                                 :auto-parent t
-                                 :order 1)
+                          (:name "WAITING"
+                                 :and (:todo  "WAIT"  :file-path "gtd\\.org")
+                                 :order 6)
                           (:discard (:anything))))))))
         ("t" "think of myself."
          ((alltodo "" ((org-super-agenda-groups
@@ -262,7 +269,7 @@
                                  :and (:todo "STARTED" :tag "myself")
                                  :order 2)
                           (:name "Things this week plan todo."
-                                 :and (:todo "NEXT"  :tag "myself")
+                                 :and (:todo "WEEKLY"  :tag "myself")
                                  :order 3)
                           (:name "Things plan todo."
                                  :and (:todo "TODO" :tag "myself")
@@ -280,4 +287,9 @@
                                  :and (:todo "PROJ" :tag "short" :file-path "myself\\.org")
                                  :order 12)
                           (:discard (:anything))))))))))
-
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background "#1E2029")))))
