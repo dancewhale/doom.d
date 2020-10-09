@@ -32,4 +32,4 @@
 (package! org-jira
   :recipe (:host github :repo "ahungry/org-jira" :branch "master"))
 
-(package! org-roam :pin "cd87cfdd58..")
+(package! org-roam :pin "0cce9d1165...")
