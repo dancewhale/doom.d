@@ -182,6 +182,11 @@
                    ("GTD/Habit.org"       :agenda t :key "H" :refile (:maxlevel . 5))
                    ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
 
+(org-starter-def "~/.org-jira"
+                   :files
+                   ("CLOUD.org"           :agenda t :key "c" :refile (:maxlevel . 5))
+                   ("CON.org"             :agenda t :key "o" :refile (:maxlevel . 5)))
+
 (after! org (setq org-capture-templates nil))
 
 (org-starter-define-file "gtd.org" :directory "~/Dropbox/org/GTD" :agenda t)
@@ -220,7 +225,7 @@
    org-agenda-include-diary nil
    org-agenda-block-separator nil
    org-agenda-compact-blocks t
-   org-agenda-start-with-log-mode t)
+   org-agenda-sta
 )
 
 (setq org-journal-enable-agenda-integration t)
@@ -255,11 +260,11 @@
                                  :and (:todo  "WAIT"  :file-path "gtd\\.org")
                                  :order 6)
                           (:discard (:anything))))))))
-        ("t" "think of myself."
+        ("j" "work in jira todo.kylincloud.org."
          ((alltodo "" ((org-super-agenda-groups
                         '(
-                          (:name "My thought and question."
-                                 :file-path "thoughts\\.org"
+                          (:name "My Work of jira."
+                                 :file-path "org-jira"
                                  :order 1)
                           (:discard (:anything))))))))
         ("m" "Plan thing of myself."
