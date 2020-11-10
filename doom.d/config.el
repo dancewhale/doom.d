@@ -225,7 +225,7 @@
    org-agenda-include-diary nil
    org-agenda-block-separator nil
    org-agenda-compact-blocks t
-   org-agenda-sta
+   org-agenda-start-with-log-mode t)
 )
 
 (setq org-journal-enable-agenda-integration t)
