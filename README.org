@@ -5,3 +5,4 @@
 - zetteldeft
 - notdeft
 - anki-editor
+** 配置文件改为chezmoi
