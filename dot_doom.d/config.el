@@ -78,6 +78,13 @@
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20))
 
+(setq  org-roam-capture-templates '(("d" "default" plain
+      (function org-roam--capture-get-point)
+     "%?"
+     :file-name "%<%Y%m%d%H%M%S>-${slug}"
+     :head "#+title: ${title}\n#+roam_tags: "
+     :unnarrowed t)))
+
 
 ;;;-------------------------------------------------
 ;; org-editor启动
@@ -102,7 +109,7 @@
  '(org-journal-date-prefix "#+title: ")
  '(org-journal-dir "~/Dropbox/roam/")
  '(org-journal-file-format "%Y-%m-%d.org")
- '(package-selected-packages (quote (docker org-roam-server)))
+ '(package-selected-packages '(peep-dired docker org-roam-server))
  '(rime-librime-root (concat my_base_path "/lib/librime")))
 
 (setq rime-posframe-properties
