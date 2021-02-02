@@ -1,0 +1,15 @@
+#!/bin/bash
+# http://masterminds.github.io/sprig/  template docs. 
+# chezmoi  data 
+
+{{ if eq .chezmoi.os "darwin" }}
+echo "Install preinstall package for macOS."
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+echo "Install preinstall package for Linux."
+{{ end }}
+
+
+
+
+
