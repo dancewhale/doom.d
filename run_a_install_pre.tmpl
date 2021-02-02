@@ -2,13 +2,15 @@
 # http://masterminds.github.io/sprig/  template docs. 
 # chezmoi  data 
 
+export  https_proxy=http://114.116.248.206:1091
+export  http_proxy=http://114.116.248.206:1091
+
 {{ if eq .chezmoi.os "darwin" }}
 echo "Install preinstall package for macOS."
 {{ end }}
 {{ if eq .chezmoi.os "linux" }}
 echo "Install preinstall package for Linux."
 {{ end }}
-
 
 
 
