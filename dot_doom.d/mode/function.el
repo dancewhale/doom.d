@@ -6,7 +6,6 @@
   (let* ((cmd (concat  "echo  -n  " data " | openssl rsautl -encrypt -pubin -oaep "
                         "-inkey ~/.ssh/id_rsa.pub.pem | openssl enc -A -base64")))
     (prog1  (shell-command-to-string cmd)
-      ;;(delete-file tmpfile))
     )
   )
 )

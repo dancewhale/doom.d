@@ -8,11 +8,15 @@
  :files ("rime-predicates.el" "rime.el")))
 
 (package! notdeft
-  :recipe (:host github :repo "hasu/notdeft" :branch "xapian"))
+  :recipe (:host github :repo "hasu/notdeft" :branch "master"))
 
 (package! org-starter)
 
 (package! org-super-agenda)
+
+(package! org-sql)
+
+(package! org-sidebar)
 
 (package! anki-editor
   :recipe (:host github :repo "louietan/anki-editor" :branch "master"))
@@ -22,14 +26,14 @@
 (package! yasnippet-snippets)
 
 (package! org-roam-server
-  :recipe (:host github :repo "org-roam/org-roam-server" :branch "master")
-  :pin "23bf730e25...")
+  :recipe (:host github :repo "org-roam/org-roam-server" :branch "master"))
 
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex" :branch "master"))
 
+(package! sis)
 
 (package! org-jira
   :recipe (:host github :repo "ahungry/org-jira" :branch "master"))
 
-(package! org-roam :pin "0cce9d1165...")
+(package! org-roam :pin "43831c5819...")

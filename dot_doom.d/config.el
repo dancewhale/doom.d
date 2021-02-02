@@ -109,7 +109,8 @@
  '(org-journal-date-prefix "#+title: ")
  '(org-journal-dir "~/Dropbox/roam/")
  '(org-journal-file-format "%Y-%m-%d.org")
- '(package-selected-packages '(peep-dired docker org-roam-server))
+ '(org-roam-directory "/Users/whale/Dropbox/roam")
+ '(package-selected-packages '(sis peep-dired docker org-roam-server))
  '(rime-librime-root (concat my_base_path "/lib/librime")))
 
 (setq rime-posframe-properties
@@ -121,6 +122,30 @@
 (setq default-input-method "rime"
       rime-show-candidate 'posframe)
 (global-set-key (kbd "s-j") 'toggle-input-method)
+
+
+;;;-------------------------------------------------
+;;; sis输入法
+;;;-------------------------------------------------
+(use-package sis
+  :config
+  ;; For MacOS
+  (sis-ism-lazyman-config
+   ;; English input source may be: "ABC", "US" or another one.
+   ;; "com.apple.keylayout.ABC"
+   "com.apple.keylayout.US"
+   ;; Other language input source: "rime", "sogou" or another one.
+   ;; "im.rime.inputmethod.Squirrel.Rime"
+   "com.sogou.inputmethod.sogou.pinyin")
+  ;; enable the /cursor color/ mode
+  (sis-global-cursor-color-mode t)
+  ;; enable the /respect/ mode
+  (sis-global-respect-mode t)
+  ;; enable the /context/ mode for all buffers
+  (sis-global-context-mode t)
+  ;; enable the /inline english/ mode for all buffers
+  (sis-global-inline-mode t)
+  )
 
 
 ;;;-------------------------------------------------
@@ -147,10 +172,11 @@
 (setq org-log-into-drawer t)
 (setq org-clock-into-drawer t)
 
+(setq org-todo-repeat-to-state "TODO")
 (setq org-todo-keywords
         '((sequence
-           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
            "TODO(t)"  ; A task that plan todo.
+           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
            "WEEKLY(w)"  ; Something that is plan todo this week.
            "STARTED(s!)"  ; Something that is start todo tody.
            "WAIT(W@/!)"  ; Task should wait for some condition for ready.
@@ -189,10 +215,6 @@
                    ("GTD/Habit.org"       :agenda t :key "H" :refile (:maxlevel . 5))
                    ("GTD/events.org"      :agenda t :key "e" :refile (:maxlevel . 5))))
 
-(org-starter-def "~/.org-jira"
-                   :files
-                   ("CLOUD.org"           :agenda t :key "c" :refile (:maxlevel . 5))
-                   ("CON.org"             :agenda t :key "o" :refile (:maxlevel . 5)))
 
 (after! org (setq org-capture-templates nil))
 
@@ -241,38 +263,31 @@
       '(("p" "Plan work of week."
          ((alltodo "" ((org-super-agenda-groups
                         '(
-                          (:name "clear."
-                                 :file-path "thoughts\\.org"
-                                 :order 33)
+                          (:name "clear"
+                           :discard (:and (:scheduled t :not (:scheduled today)))
+                           :order 33)
+                          (:name "PROJECT"
+                                 :and (:todo  "PROJ"  :file-path "gtd\\.org")
+                                 :order 1)
                           (:name "Things asign to other persion."
                                  :and (:tag  "other"  :file-path "gtd\\.org")
                                  :order 11)
                           (:name "TODAY"
                                  :and (:todo  "STARTED"  :file-path "gtd\\.org")
-                                 :order 1)
+                                 :scheduled today
+                                 :order 2)
                           (:name "TOMORROW DELAYED"
                                  :and (:todo  "DELAYED"  :file-path "gtd\\.org")
-                                 :order 2)
+                                 :order 3)
                           (:name "WEEKLY"
                                  :and (:todo  "WEEKLY"  :file-path "gtd\\.org")
-                                 :order 3)
+                                 :order 4)
                           (:name "INBOX"
                                  :and (:todo  "TODO"  :file-path "gtd\\.org")
-                                 :order 4)
-                          (:name "PROJECT"
-                                 :and (:todo  "PROJ"  :file-path "gtd\\.org"
-                                       :children ( "TODO" "WEEKLY" "STARTED" "DELAYED" "WAIT"))
                                  :order 5)
                           (:name "WAITING"
                                  :and (:todo  "WAIT"  :file-path "gtd\\.org")
                                  :order 6)
-                          (:discard (:anything))))))))
-        ("j" "work in jira todo.kylincloud.org."
-         ((alltodo "" ((org-super-agenda-groups
-                        '(
-                          (:name "My Work of jira."
-                                 :file-path "org-jira"
-                                 :order 1)
                           (:discard (:anything))))))))
         ("m" "Plan thing of myself."
          ((alltodo "" ((org-super-agenda-groups
