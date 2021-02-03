@@ -1,14 +1,51 @@
-{{ if eq .chezmoi.os "linux" }}
-#!/bin/bash
+#!/bin/bash -x
 # http://masterminds.github.io/sprig/  template docs. 
 # chezmoi  data 
+{{ if eq .chezmoi.os "linux" }}
 
 export  https_proxy=http://114.116.248.206:1091
 export  http_proxy=http://114.116.248.206:1091
 
-echo "Install preinstall package for Linux."
-exit 2
+echo "Install and configure for Ubuntu."
 
+export  $(grep CODENAME /etc/os-release | xargs)
+
+install_emacs_pre () {
+    apt-get install sqlite3
+}
+
+# install pritunl
+install_printul () {
+    echo 'https://repo.pritunl.com/stable/apt $UBUNTU_CODENAME main' > /etc/apt/sources.list.d/pritunl.list
+    
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+    sudo apt-get update
+    sudo apt-get install pritunl-client-electron
+}
+
+
+# install emacs
+install_emacs () {
+    sudo add-apt-repository -y ppa:kelleyk/emacs
+    apt-get install emacs27
+}
+
+
+# install ulauncher
+install_ulauncher () {
+    sudo add-apt-repository -y ppa:agornostal/ulauncher
+    apt-get install ulauncher
+    systemctl enable ulauncher
+    service ulauncher start
+}
+
+chmod +x ~/.emacs.d/bin/doom
+~/.emacs.d/bin/doom  sync
+
+dpkg -l |grep pritunl-client-electron || install_pritunl
+dpkg -l |grep emacs27 || install_emacs
+dpkg -l |grep ulauncher  || install_ulauncher
+dpkg -l |grep sqlite3  || install_emacs_pre
 {{ end }}
 
 
