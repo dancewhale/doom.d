@@ -30,6 +30,15 @@ install_emacs () {
     apt-get install emacs27
 }
 
+# install dropbox
+install_dropbox () {
+    wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb -O /tmp/dropbox.deb
+    dpkg -i /tmp/dropbox.deb
+    apt-get install -f
+    dpkg -i /tmp/dropbox.deb
+    dropbox proxy manual http localhost 1091
+    dropbox start -i
+}
 
 # install ulauncher
 install_ulauncher () {
@@ -46,6 +55,8 @@ dpkg -l |grep pritunl-client-electron || install_pritunl
 dpkg -l |grep emacs27 || install_emacs
 dpkg -l |grep ulauncher  || install_ulauncher
 dpkg -l |grep sqlite3  || install_emacs_pre
+which dropbox  ||  install_dropbox
+
 {{ end }}
 
 
