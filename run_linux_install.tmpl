@@ -46,16 +46,33 @@ install_ulauncher () {
     apt-get install ulauncher
     systemctl enable ulauncher
     service ulauncher start
+    # remember setting proxy for ulauncher to download extension.
+    # install copyq  for clipmanager.
+    # install extension https://github.com/friday/ulauncher-clipboard
+    add-apt-repository ppa:hluk/copyq
+    apt update
+    apt install copyq
+}
+
+# install rofi
+install_rofi () {
+    echo "start to install rofi,if you under 20.10 and want latest version, Please install from build."
+    apt-get install rofi
+# build need many package extend in install docs.
+#   apt-get install gcc make autoconf automake pkg-config flex bison check libxkbcommon0 libxkbcommon-dev  libglib2.0-dev  xcb  texinfo
+# you should upgrade check to new under 20.10 ubuntu.
+# https://github.com/libcheck/check
 }
 
 chmod +x ~/.emacs.d/bin/doom
 ~/.emacs.d/bin/doom  sync
 
 dpkg -l |grep pritunl-client-electron || install_pritunl
-dpkg -l |grep emacs27 || install_emacs
-dpkg -l |grep ulauncher  || install_ulauncher
-dpkg -l |grep sqlite3  || install_emacs_pre
-which dropbox  ||  install_dropbox
+dpkg -l |grep emacs27                 || install_emacs
+dpkg -l |grep ulauncher               || install_ulauncher
+dpkg -l |grep sqlite3                 || install_emacs_pre
+dpkg -l |grep rofi                    || install_rofi
+which dropbox                         || install_dropbox
 
 {{ end }}
 
