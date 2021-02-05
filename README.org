@@ -6,3 +6,7 @@
 - notdeft
 - anki-editor
 ** 配置文件改为chezmoi
+** ubuntu的配置
+快捷键和各种配置文件存在~/.config/目录下。
+~/.config/copyq
+~/.config/dconf/user 文件存储配置  #dconf-edit  strings都可以查看
