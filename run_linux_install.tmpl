@@ -10,8 +10,15 @@ echo "Install and configure for Ubuntu."
 
 export  $(grep CODENAME /etc/os-release | xargs)
 
+# install pre package for emacs
 install_emacs_pre () {
     sudo apt-get install sqlite3
+}
+
+# install emacs
+install_emacs () {
+    sudo add-apt-repository -y ppa:kelleyk/emacs
+    sudo apt-get install emacs27
 }
 
 # install pritunl
@@ -21,13 +28,6 @@ install_printul () {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 7568D9BB55FF9E5287D586017AE645C0CF8E292A
     sudo apt-get update
     sudo apt-get install pritunl-client-electron
-}
-
-
-# install emacs
-install_emacs () {
-    sudo add-apt-repository -y ppa:kelleyk/emacs
-    sudo apt-get install emacs27
 }
 
 # install dropbox
@@ -68,17 +68,23 @@ install_rofi () {
 install_proxy_network () {
    echo "you should install and configure trojan"
    sudo apt-get install redsocks
+   sudo cp -r etc/redsocks.conf  /etc/
+   sudo cp -r etc/privoxy        /etc/
+   sudo service redsocks restart
+   sudo service privoxy  restart
+   sudo ln -s ${PWD}/bin/proxy-set.sh  /usr/local/bin/
+   sudo ln -s ${PWD}/bin/proxy-unset.sh  /usr/local/bin/
 }
 
 chmod +x ~/.emacs.d/bin/doom
 ~/.emacs.d/bin/doom  sync
 
-dpkg -l |grep pritunl-client-electron || install_pritunl
-dpkg -l |grep emacs27                 || install_emacs
-dpkg -l |grep ulauncher               || install_ulauncher
 dpkg -l |grep sqlite3                 || install_emacs_pre
-dpkg -l |grep rofi                    || install_rofi
+dpkg -l |grep emacs27                 || install_emacs
+dpkg -l |grep pritunl-client-electron || install_pritunl
 which dropbox                         || install_dropbox
+dpkg -l |grep ulauncher               || install_ulauncher
+dpkg -l |grep rofi                    || install_rofi
 
 {{ end }}
 
