@@ -77,14 +77,13 @@ install_trojan () {
 
 # setting local proxy network
 install_proxy_network () {
-   echo "you should install and configure trojan"
-   sudo apt-get install redsocks
-   sudo cp -r etc/redsocks.conf  /etc/
-   sudo cp -r etc/privoxy        /etc/
-   sudo service redsocks restart
-   sudo service privoxy  restart
-   sudo ln -s ${PWD}/bin/proxy-set.sh  /usr/local/bin/
-   sudo ln -s ${PWD}/bin/proxy-unset.sh  /usr/local/bin/
+    echo "you should install and configure trojan"
+    sudo apt-get install redsocks
+    sudo cp -r etc/redsocks.conf  /etc/
+    sudo cp -r etc/privoxy        /etc/
+    sudo service redsocks restart
+    sudo service privoxy  restart
+    cp   bin/proxy*  /usr/local/bin/
 }
 
 chmod +x ~/.emacs.d/bin/doom
