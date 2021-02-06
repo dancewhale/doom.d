@@ -1,0 +1,16 @@
+[Unit]
+Description=Trojan Service server
+After=network.target auditd.service
+
+[Service]
+EnvironmentFile=-/etc/default/trojan
+ExecStart=/usr/local/bin/trojan -c /root/.trojan/client.json
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simply
+
+[Install]
+WantedBy=multi-user.target
+Alias=trojan.service
