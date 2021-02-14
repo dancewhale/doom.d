@@ -16,10 +16,6 @@ install_emacs_pre () {
     sudo apt update
     sudo apt-get install sqlite3 cargo git
     cargo install fd-find ripgrep
-    grep "cargo" profile || echo '# set PATH so it includes user's cargo bin if it exists
-if [ -d "$HOME/.cargo/bin" ] ; then
-    PATH="$HOME/.cargo/bin:$PATH"
-fi'  >> ~/.profile
 }
 
 # install emacs
@@ -86,6 +82,8 @@ install_fzf () {
     pushd ~/.fzf
     make
     sudo make install
+    ./install
+    sudo apt-get install highlight
     popd
 }
 
