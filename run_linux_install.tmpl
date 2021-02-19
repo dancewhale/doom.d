@@ -10,18 +10,20 @@ echo "Install and configure for Ubuntu."
 
 export  $(grep CODENAME /etc/os-release | xargs)
 
+#sed -i  "s/env_reset/http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY/g" /etc/sudoers
+
 # install pre package for emacs
 install_emacs_pre () {
     sudo add-apt-repository ppa:git-core/ppa
     sudo apt update
-    sudo apt-get install sqlite3 cargo git
+    sudo apt-get install -y sqlite3 cargo git
     cargo install fd-find ripgrep
 }
 
 # install emacs
 install_emacs () {
     sudo add-apt-repository -y ppa:kelleyk/emacs
-    sudo apt-get install emacs27
+    sudo apt-get install -y emacs27
     # forge need a ~/.authinfo.gpg file
 }
 
@@ -31,7 +33,7 @@ install_printul () {
     
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 7568D9BB55FF9E5287D586017AE645C0CF8E292A
     sudo apt-get update
-    sudo apt-get install pritunl-client-electron
+    sudo apt-get install -y pritunl-client-electron
 }
 
 # install dropbox
@@ -49,7 +51,7 @@ install_dropbox () {
 # install rofi
 install_rofi () {
     echo "start to install rofi,if you under 20.10 and want latest version, Please install from build."
-    sudo apt-get install rofi
+    sudo apt-get install -y rofi
     # build need many package extend in install docs.
     #   apt-get install gcc make autoconf automake pkg-config flex bison check libxkbcommon0 libxkbcommon-dev  libglib2.0-dev  xcb  texinfo
     # you should upgrade check to new under 20.10 ubuntu.
@@ -69,7 +71,7 @@ install_trojan () {
 # setting local proxy network
 install_proxy_network () {
     echo "you should install and configure trojan"
-    sudo apt-get install redsocks
+    sudo apt-get install -y redsocks
     sudo cp -r etc/redsocks.conf  /etc/
     sudo cp -r etc/privoxy        /etc/
     sudo service redsocks restart
@@ -83,7 +85,7 @@ install_fzf () {
     make
     sudo make install
     ./install
-    sudo apt-get install highlight
+    sudo apt-get install -y highlight
     popd
 }
 
