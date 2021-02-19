@@ -81,11 +81,11 @@ install_proxy_network () {
 
 # install fzf package
 install_fzf () {
-    pushd ~/.fzf
+    pushd .local/share/chezmoi/dot_fzf
+    sudo apt-get install -y highlight golang
     make
     sudo make install
     ./install
-    sudo apt-get install -y highlight
     popd
 }
 
@@ -98,6 +98,7 @@ dpkg -l       |grep pritunl-client-electron       || install_pritunl
 which dropbox                                     || install_dropbox
 dpkg -l       |grep rofi                          || install_rofi
 find /root/.trojan -name "trojan" -type d         || install_trojan
+which fzf                                         || install_fzf
 netstat -apn  |grep "0.0.0.0:1091"                || install_proxy_network
 
 {{ end }}
