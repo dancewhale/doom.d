@@ -10,7 +10,7 @@ echo "Install and configure for Ubuntu."
 
 export  $(grep CODENAME /etc/os-release | xargs)
 
-#sed -i  "s/env_reset/http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY/g" /etc/sudoers
+sed -i  's/env_reset/env_keep = "http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY"/g' /etc/sudoers
 
 # install pre package for emacs
 install_emacs_pre () {
@@ -61,22 +61,22 @@ install_rofi () {
 install_trojan () {
     echo "start to install trojan"
     wget https://github.com/trojan-gfw/trojan/releases/download/v1.14.1/trojan-1.14.1-linux-amd64.tar.xz  -O /tmp/trojan.tar.xz
-    sudo tar xvf /tmp/trojan.tar.gz -C /root
+    sudo tar xvf /tmp/trojan.tar.xz -C /root
     sudo mv /root/trojan  /root/.trojan
-    sudo cp  etc/systemd/system/trojan.service  /etc/systemd/system/
-    systemctl daemon-reload
-    service trojan start
+    sudo cp  ${PWD}/etc/systemd/system/trojan.service  /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo service trojan start
 } 
 
 # setting local proxy network
 install_proxy_network () {
     echo "you should install and configure trojan"
-    sudo apt-get install -y redsocks
+    sudo apt-get install -y redsocks privoxy
     sudo cp -r etc/redsocks.conf  /etc/
     sudo cp -r etc/privoxy        /etc/
     sudo service redsocks restart
     sudo service privoxy  restart
-    cp   bin/proxy*  /usr/local/bin/
+    sudo cp   bin/proxy*  /usr/local/bin/
 }
 
 # install fzf package
@@ -98,7 +98,7 @@ dpkg -l       |grep pritunl-client-electron       || install_pritunl
 which dropbox                                     || install_dropbox
 dpkg -l       |grep rofi                          || install_rofi
 find /root/.trojan -name "trojan" -type d         || install_trojan
-netstat -apn  |grep 1091                          || install_proxy_network
+netstat -apn  |grep "0.0.0.0:1091"                || install_proxy_network
 
 {{ end }}
 
