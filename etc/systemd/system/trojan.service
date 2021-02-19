@@ -4,7 +4,8 @@ After=network.target auditd.service
 
 [Service]
 EnvironmentFile=-/etc/default/trojan
-ExecStart=/usr/local/bin/trojan -c /root/.trojan/client.json
+WorkingDirectory=/root/.trojan
+ExecStart=/root/.trojan/trojan -c /root/.trojan/client.json
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
