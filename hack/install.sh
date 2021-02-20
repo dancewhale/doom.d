@@ -84,6 +84,7 @@ export  $(grep CODENAME /etc/os-release | xargs)
 
 which   fzf                                       || install_fzf
 which   rofi                                      || install_rofi
+which   copyq                                     || sudo apt-get install -y copyq
 netstat -apn  |grep "0.0.0.0:1091"                || install_proxy_network
 find /root/.trojan -name "trojan" -type d         || install_trojan
 dpkg -l       |grep pritunl-client-electron       || install_pritunl
