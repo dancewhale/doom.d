@@ -31,8 +31,9 @@ sudo service trojan start
 } 
 
 # install pritunl
-install_printul () {
-    echo 'https://repo.pritunl.com/stable/apt $UBUNTU_CODENAME main' > /etc/apt/sources.list.d/pritunl.list
+install_pritunl () {
+    sudo rm  /etc/apt/sources.list.d/pritunl.list
+    echo 'deb https://repo.pritunl.com/stable/apt focal main' | sudo tee -a /etc/apt/sources.list.d/pritunl.list
     
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 7568D9BB55FF9E5287D586017AE645C0CF8E292A
     sudo apt-get update
@@ -50,21 +51,39 @@ install_dropbox () {
 # dropbox limit client number.
 #which   dropbox                                   || install_dropbox
 
-# install rofi
+install_check () {
+    pushd check
+    git checkout 0.15.2
+    apt-get install -y libtool texinfo
+    autoreconf --install
+    ./configure
+    make
+    make check
+    sudo make install
+    sudo ldconfig
+    popd
+}
+
 install_rofi () {
-    echo "start to install rofi,if you under 20.10 and want latest version, Please install from build."
-    sudo apt-get install -y rofi
-    # build need many package extend in install docs.
-    #   apt-get install gcc make autoconf automake pkg-config flex bison check libxkbcommon0 libxkbcommon-dev  libglib2.0-dev  xcb  texinfo
-    # you should upgrade check to new under 20.10 ubuntu.
-    # https://github.com/libcheck/check
+    sudo apt-get install -y gcc make autoconf automake  pkg-config flex bison
+    install_check
+    sudo apt-get install -y libpangox-1.0-dev  libxkbcommon-dev libxcb-util0-dev  libxcb-ewmh-dev  libxcb-icccm4-dev  libxkbcommon-x11-dev libxcb-randr0-dev  libxcb-xinerama0-dev  libxcb-xrm-dev  libpango1.0-dev libstartup-notification0-dev  libgdk-pixbuf2.0-dev
+    pushd rofi
+    git checkout 1.6.1
+    mkdir -p build
+    pushd build
+    ../configure
+    make
+    sudo make install
+    popd
+    popd
 }
 
 export  $(grep CODENAME /etc/os-release | xargs)
 
 
 which   fzf                                       || install_fzf
+which   rofi                                      || install_rofi
 netstat -apn  |grep "0.0.0.0:1091"                || install_proxy_network
 find /root/.trojan -name "trojan" -type d         || install_trojan
 dpkg -l       |grep pritunl-client-electron       || install_pritunl
-dpkg -l       |grep rofi                          || install_rofi

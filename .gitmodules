@@ -4,3 +4,9 @@
 [submodule "fzf"]
 	path = hack/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "rofi"]
+	path = hack/rofi
+	url = https://github.com/davatorium/rofi.git
+[submodule "check"]
+	path = hack/check
+	url = https://github.com/libcheck/check.git

@@ -9,7 +9,7 @@ echo "Install and configure for Ubuntu."
 sudo sed -i  's/env_reset/env_keep = "http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY"/g' /etc/sudoers
 
 set_proxy () {
-    proxyIP="114.116.248.206:1091"
+    proxyIP="172.20.42.186:8118"
     export  https_proxy=http://${proxyIP}
     export  http_proxy=http://${proxyIP}
 }
@@ -45,7 +45,9 @@ dpkg -l       |grep emacs27                       || install_emacs
 
 set_proxy
 chmod +x ~/.emacs.d/bin/doom
-~/.emacs.d/bin/doom  sync
+pushd  ~/.emacs.d/bin
+./doom  sync
+popd
 unset_proxy
 
 {{ end }}
