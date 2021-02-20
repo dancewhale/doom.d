@@ -2,32 +2,32 @@
 
 # install fzf package
 install_fzf () {
-    pushd fzf
-    sudo apt-get install -y highlight golang
-    make
-    sudo make install
-    ./install
-    popd
+pushd fzf
+sudo apt-get install -y highlight golang
+make
+sudo make install
+./install
+popd
 }
 
 # setting local proxy network
 install_proxy_network () {
-    echo "you should install and configure trojan"
-    sudo apt-get install -y redsocks privoxy
-    sudo cp -r etc/redsocks.conf  /etc/
-    sudo cp -r etc/privoxy        /etc/
-    sudo service redsocks restart
-    sudo service privoxy  restart
-    sudo cp   bin/proxy*  /usr/local/bin/
+echo "you should install and configure trojan"
+sudo apt-get install -y redsocks privoxy
+sudo cp -r etc/redsocks.conf  /etc/
+sudo cp -r etc/privoxy        /etc/
+sudo service redsocks restart
+sudo service privoxy  restart
+sudo cp   bin/proxy*  /usr/local/bin/
 }
 
 install_trojan () {
-    echo "start to install trojan"
-    sudo tar xvf tar/trojan-1.14.1-linux-amd64.tar.xz  -C /root
-    sudo mv /root/trojan  /root/.trojan
-    sudo cp  etc/systemd/system/trojan.service  /etc/systemd/system/
-    sudo systemctl daemon-reload
-    sudo service trojan start
+echo "start to install trojan"
+sudo tar xvf tar/trojan-1.14.1-linux-amd64.tar.xz  -C /root
+sudo mv /root/trojan  /root/.trojan
+sudo cp  etc/systemd/system/trojan.service  /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo service trojan start
 } 
 
 # install pritunl
@@ -59,6 +59,9 @@ install_rofi () {
     # you should upgrade check to new under 20.10 ubuntu.
     # https://github.com/libcheck/check
 }
+
+export  $(grep CODENAME /etc/os-release | xargs)
+
 
 which   fzf                                       || install_fzf
 netstat -apn  |grep "0.0.0.0:1091"                || install_proxy_network

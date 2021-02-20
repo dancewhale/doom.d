@@ -1,0 +1,55 @@
+#!/bin/bash -x
+# http://masterminds.github.io/sprig/  template docs. 
+# chezmoi  data 
+{{ if and (eq .chezmoi.osRelease.id "kylin") (eq .chezmoi.osRelease.versionID "v10") }}
+
+
+echo "Install and configure for Ubuntu."
+
+sudo sed -i  's/env_reset/env_keep = "http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY"/g' /etc/sudoers
+
+set_proxy () {
+    proxyIP="114.116.248.206:1091"
+    export  https_proxy=http://${proxyIP}
+    export  http_proxy=http://${proxyIP}
+}
+
+unset_proxy () {
+    unset https_proxy
+    unset http_proxy
+}
+
+# install pre package for emacs
+install_emacs_pre () {
+    sudo rm /etc/apt/sources.list.d/emacs.list || true
+    sudo apt update
+    sudo apt-get install -y sqlite3 cargo software-properties-common add-apt-key
+    set_proxy
+    cargo install fd-find ripgrep
+    unset_proxy
+}
+
+# install emacs
+install_emacs () {
+    echo 'deb http://ppa.launchpad.net/kelleyk/emacs/ubuntu focal main 
+deb-src http://ppa.launchpad.net/kelleyk/emacs/ubuntu focal main' | sudo tee -a /etc/apt/sources.list.d/emacs.list
+    sudo add-apt-key -k keyserver.ubuntu.com 873503A090750CDAEB0754D93FF0E01EEAAFC9CD
+    sudo apt-get update
+    sudo apt-get install -y emacs27
+    # forge need a ~/.authinfo.gpg file
+}
+
+
+install_emacs_pre
+dpkg -l       |grep emacs27                       || install_emacs
+
+set_proxy
+chmod +x ~/.emacs.d/bin/doom
+~/.emacs.d/bin/doom  sync
+unset_proxy
+
+{{ end }}
+
+
+
+

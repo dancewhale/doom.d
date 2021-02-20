@@ -1,16 +1,14 @@
 #!/bin/bash -x
 # http://masterminds.github.io/sprig/  template docs. 
 # chezmoi  data 
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.osRelease.id "ubuntu" }}
 
 export  https_proxy=http://114.116.248.206:1091
 export  http_proxy=http://114.116.248.206:1091
 
 echo "Install and configure for Ubuntu."
 
-export  $(grep CODENAME /etc/os-release | xargs)
-
-sed -i  's/env_reset/env_keep = "http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY"/g' /etc/sudoers
+sudo sed -i  's/env_reset/env_keep = "http_proxy https_proxy ftp_proxy DISPLAY XAUTHORITY"/g' /etc/sudoers
 
 # install pre package for emacs
 install_emacs_pre () {
