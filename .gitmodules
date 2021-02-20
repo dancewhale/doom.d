@@ -2,5 +2,5 @@
 	path = dot_emacs.d
 	url = https://github.com/hlissner/doom-emacs.git
 [submodule "fzf"]
-	path = dot_fzf
+	path = hack/fzf
 	url = https://github.com/junegunn/fzf.git
