@@ -42,6 +42,8 @@ deb-src http://ppa.launchpad.net/kelleyk/emacs/ubuntu focal main' | sudo tee -a 
 
 install_emacs_pre
 dpkg -l       |grep emacs27                       || install_emacs
+which   copyq                                     || sudo apt-get install -y copyq
+which   xbindkeys                                 || sudo apt-get install -y xbindkeys
 
 set_proxy
 chmod +x ~/.emacs.d/bin/doom
